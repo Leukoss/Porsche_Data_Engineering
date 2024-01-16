@@ -1,5 +1,45 @@
 /* styles.css */
 
+/* STYLE GENERALE */
+body {
+    margin: 0;
+}
+
+/* NAVIGATION BAR */
+
+/* Style général de la barre de navigation */
+.navbar {
+    background-color: #1A1A1A;
+    padding: 25px 50px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* Style du texte des balises <a></a> */
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+/* Style du texte des balises <a></a> quand survolée */
+.navbar a:hover {
+    color: #E0E0E0;
+    text-decoration: none;
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+/* Permet de conserver Comparaison avec un écart sur la droite égal à celui de
+gauche */
+.navbar a:last-child {
+    margin-right: 0;
+}
+
+/* FOOTER */
+
 /* Styles communs au footer */
 .footer {
     display: flex;
