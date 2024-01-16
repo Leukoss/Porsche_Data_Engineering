@@ -1,10 +1,42 @@
+<!-- base.html : permet d'être utilisé pour la structure générale des pages -->
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
+
+<!-- Contient le header (en-tête) -->
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <!-- Métadonnées (informations sur la page) -->
+    <!-- keyword -> mots clefs, viewport -> optimise la mise en page mobile -->
+    <meta name="keywords" content="Scrapy, HTML, JS, CSS, Flask, Mongo, Python">
+    <meta name="viewport" content="width=device-widht, initial-scale=1.0">
+    <meta name="author" content="Lucas SALI--ORLIANGE">
+    <meta charset="UTF-8">
+    <!-- Permet de pouvoir ajuster le titre dans chaque page -->
+    <title>{% block title %}{% endblock %}</title>
+    <!-- Permet de lier cette page et son contenu à une feuille de style css -->
+    <link rel="stylesheet" href="../static/css/base.css">
+    <!-- Permet de lier cette page et son contenu à un script javascript -->
+    <!-- defer → charge en différé de l'HTML pour améliorer les performances -->
+    <script src="../static/js/base.js" defer></script>
 </head>
+
 <body>
-$END$
+    <!-- Barre de navigation -->
+    <nav class="navbar">
+        <!-- Div contenant les différents accès aux autres pages -->
+        <a href="index.html">Accueil</a>
+        <a href="exploit.html">Etudes des modèles Porsche</a>
+    </nav>
+
+    <!-- Contient le corps de la page web -->
+    <div>
+
+    </div>
+
+    <!-- Contient le footer de la page web -->
+    <footer>
+
+    </footer>
 </body>
+
 </html>
