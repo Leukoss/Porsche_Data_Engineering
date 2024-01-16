@@ -2,6 +2,7 @@
 
 /* STYLE GENERALE */
 body {
+    font-family: Arial, Helvetica, sans-serif;
     margin: 0;
 }
 
@@ -13,7 +14,7 @@ body {
     padding: 25px 50px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: space-evenly;
 }
 
 /* Style du texte des balises <a></a> */
@@ -22,6 +23,7 @@ body {
     text-decoration: none;
     margin-right: 30px;
     font-weight: bold;
+    justify-content: center;
 }
 
 /* Style du texte des balises <a></a> quand survolée */

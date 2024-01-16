@@ -24,18 +24,13 @@
     <!-- Barre de navigation -->
     <nav class="navbar">
         <!-- Div contenant les différents accès aux autres pages -->
-        <a href="index.html">Accueil</a>
-        <a href="search_model.html">Recherche</a>
-        <a href="comparaison.html">Comparaison</a>
+        <a href="{{ url_for('home') }}">Accueil</a>
+        <a href="{{ url_for('search') }}">Recherche</a>
+        <a href="{{ url_for('comparaison') }}">Comparaison</a>
     </nav>
 
-    <!-- Contient le titre associé à la page web -->
-    <h1 class="title">
-        {% block h1 %}{% endblock %}
-    </h1>
-
     <!-- Contient le corps de la page web -->
-    <div>
+    <div class="content">
         {% block body %}{% endblock %}
     </div>
 
