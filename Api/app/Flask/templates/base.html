@@ -25,17 +25,44 @@
     <nav class="navbar">
         <!-- Div contenant les différents accès aux autres pages -->
         <a href="index.html">Accueil</a>
-        <a href="exploit.html">Etudes des modèles Porsche</a>
+        <a href="search_model.html">Recherche</a>
+        <a href="comparaison.html">Comparaison</a>
     </nav>
+
+    <!-- Contient le titre associé à la page web -->
+    <h1 class="title">
+        {% block h1 %}{% endblock %}
+    </h1>
 
     <!-- Contient le corps de la page web -->
     <div>
-
+        {% block body %}{% endblock %}
     </div>
 
     <!-- Contient le footer de la page web -->
     <footer>
+        <div class="footer">
+            <!-- Logo Université Gustave Eiffel -->
+            <img src="../static/img/logo_univ.png" class="logo" alt="Logo Université Gustave Eiffel">
 
+            <!-- Copyright -->
+            <div class="copyright">
+                Copyright © 2024 / 2025
+            </div>
+
+            <!-- Credits -->
+            <div class="credits">
+                SALI--ORLIANGE Lucas, encadré par Jérémy SURGET & William CARDOSO
+            </div>
+
+            <!-- Unit -->
+            <div class="unit">
+                DSIA-4201C : Data Engineering
+            </div>
+
+            <!-- Logo ESIEE Paris -->
+            <img src="../static/img/logo_esiee.png" class="logo" alt="Logo ESIEE Paris">
+        </div>
     </footer>
 </body>
 
