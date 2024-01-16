@@ -1,0 +1,42 @@
+/* styles.css */
+
+/* Styles communs au footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #1A1A1A;
+    border-radius: 5px;
+    color: #1A1A1A;
+    height: 4.5rem;
+    padding: 10px;
+    margin: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+/* Logo */
+.logo {
+    border-radius: 5px;
+    max-width: 10%;
+    max-height: 100%;
+}
+
+/* Texte du footer */
+.footer-text {
+    text-align: center;
+    font-size: 12px;
+}
+
+/* Unit */
+.unit {
+    text-decoration: underline;
+}
+
+/* Copyright */
+.copyright {
+    font-style: italic;
+}
