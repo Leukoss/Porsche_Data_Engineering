@@ -6,6 +6,11 @@ from flask_pymongo import PyMongo
 
 
 def log_mongodb(flask_app):
+    """
+    Permet de se connecter à la base de données issue du scraping
+    :param flask_app: application flask
+    :return: collection
+    """
     try:
         # Configuration du Flask_Pymongo pour se connecter au localhost27017 et
         # à la base de données 'porsche'
