@@ -82,7 +82,7 @@ def comparaison():
     :return: render_template retourne la page html associée se trouvant dans le
     dossier 'templates'
     """
-    get_min_max_filter(collection)
+
 
     return render_template('comparaison.html')
 

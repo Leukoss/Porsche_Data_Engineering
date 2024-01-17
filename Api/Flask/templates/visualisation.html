@@ -3,6 +3,11 @@
 <!-- Importation de la structure générale du base.html -->
 {% extends "base.html" %}
 
+<!-- Ajout d'une stylesheet propre à cette page -->
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/visualisation.css') }}">
+{% endblock %}
+
 <!-- Permet de pouvoir ajuster le titre dans chaque page -->
 {% block title %}
     Visualisation
