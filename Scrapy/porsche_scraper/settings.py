@@ -61,6 +61,8 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
+    # Permet de mettre le traitement des items dans les pipelines
+    "porsche_scraper.pipelines.TextPipeline": 100,
     # Permet de mettre mongo dans les pipelines
     "porsche_scraper.pipelines.MongoPipeline": 300,
 }

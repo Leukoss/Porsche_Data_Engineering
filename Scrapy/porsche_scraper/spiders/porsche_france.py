@@ -66,8 +66,8 @@ class PorscheFranceSpider(scrapy.Spider):
                 image_url=self.parse_url_image(model),
                 porsche_price=self.parse_price(model),
                 porsche_name=self.parse_name(model),
-                l_100=self.parse_l100(model),
-                power=dict_details['power'],
+                l_100_min=self.parse_l100(model),
+                power_ch=dict_details['power'],
             )
 
     @staticmethod
