@@ -3,6 +3,11 @@
 <!-- Importation de la structure générale du base.html -->
 {% extends "base.html" %}
 
+<!-- Ajout d'une stylesheet propre à cette page -->
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
 <!-- Permet de pouvoir ajuster le titre dans chaque page -->
 <!-- Contient le titre associé à la page web -->
 {% block title %}
@@ -12,13 +17,15 @@
 
 <!-- Contient le body associé à la page web -->
 {% block body %}
-    <!-- Contient les filtres -->
-    <div class="filter_porsche">
-        filtre
-    </div>
-
-    <!-- Contient le contenu -->
-    <div class="porsche_models">
-        gallery
+    <!-- Contient la gallerie des modèles de Porsche disponibles -->
+    <div class="porsche_models_gallery">
+        <!-- Chaque modèle affiche l'image, le prix et le nom -->
+        {% for model in porsche_models %}
+        <div class="porsche_model_card">
+            <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche_model_image">
+            <h3 class="porsche_model_name">{{ model.porsche_name }}</h3>
+            <p class="porsche_model_price">{{ model.porsche_price }} €</p>
+        </div>
+        {% endfor %}
     </div>
 {% endblock %}

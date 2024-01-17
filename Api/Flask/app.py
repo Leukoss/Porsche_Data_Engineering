@@ -23,6 +23,24 @@ def log_mongodb(flask_app):
         print(f"Exception while connecting to the mongodb... Error : {error}")
 
 
+def get_min_max_filter(collection_porsche) -> dict:
+    """
+    Permet de récupérer les valeurs des filtres sous forme de dictionnaire
+    :param collection_porsche: collection de la mongodb porsche
+    :return: dictionnaire
+    """
+    dict_filters = {}
+
+    # On récupère un élément pour conserver les 'field'
+    document = collection.find_one({})
+
+    # Dans un second temps, on récupère les fields que l'on souhaite (tous sont
+    # utiles sauf le nom)
+    field_names = document.keys()
+
+    print(field_names)
+
+
 # On instancie notre application Flask
 app = Flask(__name__)
 
@@ -40,11 +58,33 @@ def home():
     # Récupération de tous les éléments
     porsche_models_informations = collection.find()
 
-    porsche_dict = {
+    # On définit une liste que l'on passera plus tard en paramètre pour render
+    porsche_models_list = []
 
-    }
+    # Pour chaque élément de la base de données, on récupère des informations
+    # précises
+    for model in porsche_models_informations:
+        model_data = {
+            'porsche_price': model.get('porsche_price'),
+            'porsche_name': model.get('porsche_name'),
+            'image_url': model.get('image_url')
+        }
+        porsche_models_list.append(model_data)
 
-    return render_template('index.html')
+    return render_template('index.html', porsche_models=porsche_models_list)
+
+
+@app.route('/comparaison', methods=['GET', 'POST'])
+def comparaison():
+    """
+    Permet de définir la page de comparaison (besoin de GET/POST, car
+    l'utilisateur sélectionne des données et nous en envoyons
+    :return: render_template retourne la page html associée se trouvant dans le
+    dossier 'templates'
+    """
+    get_min_max_filter(collection)
+
+    return render_template('comparaison.html')
 
 
 @app.route('/search_model')
@@ -55,16 +95,6 @@ def search():
     dossier 'templates'
     """
     return render_template('search_model.html')
-
-
-@app.route('/comparaison')
-def comparaison():
-    """
-    Permet de définir la page de comparaison
-    :return: render_template retourne la page html associée se trouvant dans le
-    dossier 'templates'
-    """
-    return render_template('comparaison.html')
 
 
 @app.route('/visualisation')
