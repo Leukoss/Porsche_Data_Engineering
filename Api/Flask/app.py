@@ -4,6 +4,9 @@
 from flask import Flask, render_template
 from flask_pymongo import PyMongo
 
+# On importe toutes les fonctions de recherches notamment pour les filtres
+from ..ElasticSearch.elasticsearch_functions import *
+
 
 def log_mongodb(flask_app):
     """
@@ -23,22 +26,30 @@ def log_mongodb(flask_app):
         print(f"Exception while connecting to the mongodb... Error : {error}")
 
 
-def get_min_max_filter(collection_porsche) -> dict:
+def get_mongodb_data(flaskapp) -> list:
     """
-    Permet de récupérer les valeurs des filtres sous forme de dictionnaire
-    :param collection_porsche: collection de la mongodb porsche
-    :return: dictionnaire
+    Permet de récupérer le jeu de données en excluant '_id'
+    :param flaskapp: application
+    :return: liste de données
     """
-    dict_filters = {}
+    field_to_exclude = {'_id': 0}
 
-    # On récupère un élément pour conserver les 'field'
-    document = collection.find_one({})
+    # Sous forme de liste, retourne tous les fields de tous les documents de la
+    # collection excepté le 'field_to_exclude'
+    return list(collection.find({}, field_to_exclude))
 
-    # Dans un second temps, on récupère les fields que l'on souhaite (tous sont
-    # utiles sauf le nom)
-    field_names = document.keys()
 
-    print(field_names)
+# def create_es(es_client, collection):
+#     """
+#     On instancie notre elasticsearch en indexant notre collection
+#     :param es_client: client elasticsearch
+#     :param collection: collection de documents
+#     """
+#     # Dans un premier temps, on réinitialise le précédent elasticsearch
+#     clear_es_client(es_client)
+#
+#     # Dans un second temps, on indexe nos données
+#     create_index(es_client, )
 
 
 # On instancie notre application Flask
@@ -56,7 +67,7 @@ def home():
     dossier 'templates'
     """
     # Récupération de tous les éléments
-    porsche_models_informations = collection.find()
+    porsche_models_informations = get_mongodb_data(collection)
 
     # On définit une liste que l'on passera plus tard en paramètre pour render
     porsche_models_list = []
@@ -74,7 +85,7 @@ def home():
     return render_template('index.html', porsche_models=porsche_models_list)
 
 
-@app.route('/comparaison', methods=['GET', 'POST'])
+@app.route('/comparaison')
 def comparaison():
     """
     Permet de définir la page de comparaison (besoin de GET/POST, car
@@ -82,7 +93,8 @@ def comparaison():
     :return: render_template retourne la page html associée se trouvant dans le
     dossier 'templates'
     """
-
+    # Dans un premier temps, on définit un dictionnaire qui contiendra tous les
+    # paramètres dont nous aurons besoin dans 'search_porsche_model'
 
     return render_template('comparaison.html')
 
