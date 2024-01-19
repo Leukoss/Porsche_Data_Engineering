@@ -18,7 +18,8 @@
 <!-- Contient le body associé à la page web -->
 {% block body %}
     <div class="row-filter">
-        <div class="wrapper">
+        <!-- Correspond aux Prix -->
+        <div class="wrapper-price">
             <!-- Correspond à la catégorie -->
             <header>
                 <h2>Prix TTC</h2>
@@ -31,8 +32,7 @@
                     <input type="number" class="input-min" value="65000">
                 </div>
 
-                <!-- Séparateur -->
-                <div class="separator"> - </div>
+                <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field">
@@ -42,7 +42,7 @@
 
             <!-- Correspond à la distance entre les deux extremums -->
             <div class="slider">
-                <div class="progress"></div>
+                <div class="progress">-</div>
             </div>
 
             <!-- Correspond au slider des valeurs -->
@@ -50,10 +50,9 @@
                 <input type="range" class="range-min" min="0" max="310000" value="65000" step="1000">
                 <input type="range" class="range-max" min="0" max="310000" value="309000" step="1000">
             </div>
-
-            <script src="../static/js/index.js"></script>
         </div>
 
+        <!-- Correspond aux Vitesses -->
         <div class="wrapper-speed">
             <!-- Correspond à la catégorie -->
             <header>
@@ -64,11 +63,10 @@
             <div class="speed-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field-speed">
-                    <input type="number" class="input-speed-min" value="100">
+                    <input type="number" class="input-speed-min" value="0">
                 </div>
 
-                <!-- Séparateur -->
-                <div class="separator"> - </div>
+                <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-speed">
@@ -83,11 +81,12 @@
 
             <!-- Correspond au slider des valeurs -->
             <div class="range-speed-input">
-                <input type="range" class="range-speed-min" min="100" max="350" value="100" step="1">
-                <input type="range" class="range-speed-max" min="100" max="350" value="350" step="1">
+                <input type="range" class="range-speed-min" min="0" max="350" value="0" step="1">
+                <input type="range" class="range-speed-max" min="0" max="350" value="350" step="1">
             </div>
         </div>
 
+        <!-- Correspond aux L/100 -->
         <div class="wrapper-l-100">
             <!-- Correspond à la catégorie -->
             <header>
@@ -101,8 +100,7 @@
                     <input type="number" class="input-l-100-min" value="5">
                 </div>
 
-                <!-- Séparateur -->
-                <div class="separator"> - </div>
+                <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-l-100">
@@ -122,6 +120,7 @@
             </div>
         </div>
 
+        <!-- Correspond aux Puissances (ch) -->
         <div class="wrapper-power">
             <!-- Correspond à la catégorie -->
             <header>
@@ -135,8 +134,7 @@
                     <input type="number" class="input-power-min" value="0">
                 </div>
 
-                <!-- Séparateur -->
-                <div class="separator"> - </div>
+                <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-power">
@@ -156,6 +154,7 @@
             </div>
         </div>
 
+        <!-- Correspond aux Accélérations -->
         <div class="wrapper-acceleration">
             <!-- Correspond à la catégorie -->
             <header>
@@ -169,8 +168,7 @@
                     <input type="number" class="input-acceleration-min" value="0">
                 </div>
 
-                <!-- Séparateur -->
-                <div class="separator"> - </div>
+                <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-acceleration">
@@ -189,6 +187,9 @@
                 <input type="range" class="range-acceleration-max" min="0" max="10" value="9" step="1">
             </div>
         </div>
+
+        <!-- Correspond aux scripts pour les filtres -->
+        <script src="../static/js/index.js"></script>
     </div>
 
 

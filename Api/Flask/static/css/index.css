@@ -10,7 +10,7 @@
 }
 
 /* Style pour toutes les cartes de filtre */
-.wrapper, .wrapper-speed, .wrapper-l-100, .wrapper-power, .wrapper-acceleration {
+.wrapper-price, .wrapper-speed, .wrapper-l-100, .wrapper-power, .wrapper-acceleration {
   width: calc(18% - 20px);
   background: #fff;
   border-radius: 10px;
@@ -32,7 +32,7 @@ header h2{
 }
 
 /* Style pour les boîtes contenant les valeurs min/max */
-.price-input .field, speed-input .field, l-100-input .field, power-input .field, acceleration-input .field {
+.price-input .field, .speed-input .field-speed, .l-100-input .field-l-100, .power-input .field-power, .acceleration-input .field-acceleration {
   display: flex;
   width: 100%;
   height: 45px;
@@ -40,7 +40,7 @@ header h2{
 }
 
 /* Style pour les boîtes contenant les valeurs min/max */
-.field input {
+.field input, .field-speed input, .field-l-100 input, .field-power input, .field-acceleration input {
   width: 100%;
   height: 100%;
   outline: none;
@@ -52,12 +52,7 @@ header h2{
   -moz-appearance: textfield;
 }
 
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-}
-
-.separator {
+.separator{
   width: 130px;
   display: flex;
   font-size: 19px;
@@ -65,14 +60,19 @@ input[type="number"]::-webkit-inner-spin-button {
   justify-content: center;
 }
 
-.slider {
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.slider, .slider-speed, .slider-l-100, .slider-power, .slider-acceleration {
   height: 5px;
   position: relative;
   background: #ddd;
   border-radius: 5px;
 }
 
-.slider .progress {
+.slider .progress, .slider-speed .progress-speed, .slider-l-100 .progress-l-100, .slider-power .progress-power, .slider-acceleration .progress-acceleration {
   height: 100%;
   left: 25%;
   right: 25%;
@@ -100,7 +100,7 @@ input[type="range"]::-moz-range-thumb {
   width: 17px;
   border: none;
   border-radius: 50%;
-  background: #17A2B8;
+  background: #a43939;
   pointer-events: auto;
   -moz-appearance: none;
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
