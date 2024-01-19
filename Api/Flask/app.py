@@ -85,20 +85,6 @@ def home():
     return render_template('index.html', porsche_models=porsche_models_list)
 
 
-@app.route('/comparaison')
-def comparaison():
-    """
-    Permet de définir la page de comparaison (besoin de GET/POST, car
-    l'utilisateur sélectionne des données et nous en envoyons
-    :return: render_template retourne la page html associée se trouvant dans le
-    dossier 'templates'
-    """
-    # Dans un premier temps, on définit un dictionnaire qui contiendra tous les
-    # paramètres dont nous aurons besoin dans 'search_porsche_model'
-
-    return render_template('comparaison.html')
-
-
 @app.route('/search_model')
 def search():
     """

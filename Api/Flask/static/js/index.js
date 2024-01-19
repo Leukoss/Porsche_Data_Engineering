@@ -79,3 +79,132 @@ rangeSpeedInput.forEach(input => {
         }
     });
 });
+
+// Variables pour les filtres Litres/100 km
+const rangeL100Input = document.querySelectorAll(".range-l-100-input input");
+const l100Input = document.querySelectorAll(".l-100-input input");
+const rangeL100 = document.querySelector(".slider-l-100 .progress-l-100");
+let l100Gap = 1;
+
+// Variables pour les filtres Accélérations
+const rangeAccelerationInput = document.querySelectorAll(".range-acceleration-input input");
+const accelerationInput = document.querySelectorAll(".acceleration-input input");
+const rangeAcceleration = document.querySelector(".slider-acceleration .progress-acceleration");
+let accelerationGap = 1;
+
+// Variables pour les filtres Puissances (CH)
+const rangePowerInput = document.querySelectorAll(".range-power-input input");
+const powerInput = document.querySelectorAll(".power-input input");
+const rangePower = document.querySelector(".slider-power .progress-power");
+let powerGap = 10;
+
+// Écouteurs d'événements pour les filtres Litres/100 km
+l100Input.forEach(input => {
+    input.addEventListener("input", e => {
+        let minL100 = parseInt(l100Input[0].value);
+        let maxL100 = parseInt(l100Input[1].value);
+
+        if ((maxL100 - minL100 >= l100Gap) && maxL100 <= rangeL100Input[1].max) {
+            if (e.target.className === "input-l-100-min") {
+                rangeL100Input[0].value = minL100;
+                rangeL100.style.left = ((minL100 / rangeL100Input[0].max) * 100) + "%";
+            } else {
+                rangeL100Input[1].value = maxL100;
+                rangeL100.style.right = 100 - (maxL100 / rangeL100Input[1].max) * 100 + "%";
+            }
+        }
+    });
+});
+
+rangeL100Input.forEach(input => {
+    input.addEventListener("input", e => {
+        let minVal = parseInt(rangeL100Input[0].value);
+        let maxVal = parseInt(rangeL100Input[1].value);
+        if ((maxVal - minVal) < l100Gap) {
+            if (e.target.className === "range-l-100-min") {
+                rangeL100Input[0].value = maxVal - l100Gap;
+            } else {
+                rangeL100Input[1].value = minVal + l100Gap;
+            }
+        } else {
+            l100Input[0].value = minVal;
+            l100Input[1].value = maxVal;
+            rangeL100.style.left = ((minVal / rangeL100Input[0].max) * 100) + "%";
+            rangeL100.style.right = 100 - (maxVal / rangeL100Input[1].max) * 100 + "%";
+        }
+    });
+});
+
+// Écouteurs d'événements pour les filtres Accélérations
+accelerationInput.forEach(input => {
+    input.addEventListener("input", e => {
+        let minAcceleration = parseInt(accelerationInput[0].value);
+        let maxAcceleration = parseInt(accelerationInput[1].value);
+
+        if ((maxAcceleration - minAcceleration >= accelerationGap) && maxAcceleration <= rangeAccelerationInput[1].max) {
+            if (e.target.className === "input-acceleration-min") {
+                rangeAccelerationInput[0].value = minAcceleration;
+                rangeAcceleration.style.left = ((minAcceleration / rangeAccelerationInput[0].max) * 100) + "%";
+            } else {
+                rangeAccelerationInput[1].value = maxAcceleration;
+                rangeAcceleration.style.right = 100 - (maxAcceleration / rangeAccelerationInput[1].max) * 100 + "%";
+            }
+        }
+    });
+});
+
+rangeAccelerationInput.forEach(input => {
+    input.addEventListener("input", e => {
+        let minVal = parseInt(rangeAccelerationInput[0].value);
+        let maxVal = parseInt(rangeAccelerationInput[1].value);
+        if ((maxVal - minVal) < accelerationGap) {
+            if (e.target.className === "range-acceleration-min") {
+                rangeAccelerationInput[0].value = maxVal - accelerationGap;
+            } else {
+                rangeAccelerationInput[1].value = minVal + accelerationGap;
+            }
+        } else {
+            accelerationInput[0].value = minVal;
+            accelerationInput[1].value = maxVal;
+            rangeAcceleration.style.left = ((minVal / rangeAccelerationInput[0].max) * 100) + "%";
+            rangeAcceleration.style.right = 100 - (maxVal / rangeAccelerationInput[1].max) * 100 + "%";
+        }
+    });
+});
+
+// Écouteurs d'événements pour les filtres Puissances (CH)
+powerInput.forEach(input => {
+    input.addEventListener("input", e => {
+        let minPower = parseInt(powerInput[0].value);
+        let maxPower = parseInt(powerInput[1].value);
+
+        if ((maxPower - minPower >= powerGap) && maxPower <= rangePowerInput[1].max) {
+            if (e.target.className === "input-power-min") {
+                rangePowerInput[0].value = minPower;
+                rangePower.style.left = ((minPower / rangePowerInput[0].max) * 100) + "%";
+            } else {
+                rangePowerInput[1].value = maxPower;
+                rangePower.style.right = 100 - (maxPower / rangePowerInput[1].max) * 100 + "%";
+            }
+        }
+    });
+});
+
+rangePowerInput.forEach(input => {
+    input.addEventListener("input", e => {
+        let minVal = parseInt(rangePowerInput[0].value);
+        let maxVal = parseInt(rangePowerInput[1].value);
+        if ((maxVal - minVal) < powerGap) {
+            if (e.target.className === "range-power-min") {
+                rangePowerInput[0].value = maxVal - powerGap;
+            } else {
+                rangePowerInput[1].value = minVal + powerGap;
+            }
+        } else {
+            powerInput[0].value = minVal;
+            powerInput[1].value = maxVal;
+            rangePower.style.left = ((minVal / rangePowerInput[0].max) * 100) + "%";
+            rangePower.style.right = 100 - (maxVal / rangePowerInput[1].max) * 100 + "%";
+        }
+    });
+});
