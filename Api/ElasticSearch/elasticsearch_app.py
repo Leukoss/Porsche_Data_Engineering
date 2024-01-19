@@ -6,6 +6,7 @@ try:
     # On instancie ElasticSearch à l'adresse localhost au port 9200
     es = Elasticsearch(hosts=['http://localhost:9200'])
 
+    # Afin de s'assurer que la connexion est établie on ping notre ElasticSearch
     if es.ping():
         print('Connexion établie')
 except ConnectionError as error:

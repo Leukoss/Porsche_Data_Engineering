@@ -5,7 +5,7 @@ from flask import Flask, render_template
 from flask_pymongo import PyMongo
 
 # On importe toutes les fonctions de recherches notamment pour les filtres
-from ..ElasticSearch.elasticsearch_functions import *
+# from ..ElasticSearch.elasticsearch_functions import *
 
 
 def log_mongodb(flask_app):

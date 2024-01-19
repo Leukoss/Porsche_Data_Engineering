@@ -17,14 +17,51 @@
 
 <!-- Contient le body associé à la page web -->
 {% block body %}
+    <div class="wrapper">
+        <!-- Correspond à la catégorie -->
+        <header>
+            <h2>Prix TTC</h2>
+        </header>
+
+        <!-- Correspond aux deux valeurs minimales et maximales -->
+        <div class="price-input">
+            <!-- Correspond à la valeur minimale -->
+            <div class="field">
+                <input type="number" class="input-min" value="65000">
+            </div>
+
+            <!-- Séparateur -->
+            <div class="separator"> - </div>
+
+            <!-- Correspond à la valeur maximale -->
+            <div class="field">
+                <input type="number" class="input-max" value="309000">
+            </div>
+        </div>
+
+        <!-- Correspond à la distance entre les deux extremums -->
+        <div class="slider">
+            <div class="progress"></div>
+        </div>
+
+        <!-- Correspond au slider des valeurs -->
+        <div class="range-input">
+            <input type="range" class="range-min" min="0" max="310000" value="65000" step="1000">
+            <input type="range" class="range-max" min="0" max="310000" value="309000" step="1000">
+        </div>
+
+        <script src="../static/js/index.js"></script>
+    </div>
+
+
     <!-- Contient la gallerie des modèles de Porsche disponibles -->
-    <div class="porsche_models_gallery">
+    <div class="porsche-models-gallery">
         <!-- Chaque modèle affiche l'image, le prix et le nom -->
         {% for model in porsche_models %}
-        <div class="porsche_model_card">
-            <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche_model_image">
-            <h3 class="porsche_model_name">{{ model.porsche_name }}</h3>
-            <p class="porsche_model_price">{{ model.porsche_price }} €</p>
+        <div class="porsche-model-card">
+            <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
+            <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
+            <p class="porsche-model-price">{{ model.porsche_price }} €</p>
         </div>
         {% endfor %}
     </div>
