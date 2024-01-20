@@ -209,19 +209,9 @@ rangeSpeedInput.forEach(input => {
     });
 });
 
-const min_speed = document.getElementsByName('speed-min')
-const max_speed = document.getElementsByName('speed-max')
-const min_l_100 = document.getElementsByName('l-100-min')
-const max_l_100 = document.getElementsByName('l-100-max')
-const min_power = document.getElementsByName('power-min')
-const max_power = document.getElementsByName('power-max')
-const min_acc = document.getElementsByName('acc-min')
-const max_acc = document.getElementsByName('acc-max')
+const priceRangeForme = document.getElementById('priceRangeForme');
+const minPriceSelect = document.getElementById('price-min');
 
-document.addEventListener("DOMContentLoaded", function () {
-    const priceMinInput = document.getElementById("price-min");
-    const priceMaxInput = document.getElementById("price-max");
-
-    const initialMinPrice = parseInt(priceMinInput.value);
-    const initialMaxPrice = parseInt(priceMaxInput.value);
+minPriceSelect.addEventListener('change', () => {
+    priceRangeForme.submit();
 });

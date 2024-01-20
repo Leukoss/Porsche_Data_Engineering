@@ -1,18 +1,13 @@
 """
     Module permettant le lancement de l'application Flask
 """
-import plotly
-from plotly.offline import plot
 import plotly.graph_objs as go
+import plotly
 import json
+
+from Api.ElasticSearch_api.elasticsearch_functions import *
 from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
-
-# On importe toutes les fonctions de recherches notamment pour les filtres
-from Api.ElasticSearch_api.elasticsearch_functions import (indexation,
-                                                           clear_es_client,
-                                                           search_porsche_model,
-                                                           es)
 
 
 def log_mongodb(flask_app):
@@ -46,28 +41,28 @@ def get_mongodb_data(flaskapp) -> list:
     return list(collection.find({}, field_to_exclude))
 
 
-def create_es(es_client, collection):
+def create_es(es_client, porsche_collection):
     """
     On instancie notre elasticsearch en indexant notre collection
     :param es_client: client elasticsearch
-    :param collection: collection de documents
+    :param porsche_collection: parlant
     """
     # Dans un premier temps, on réinitialise le précédent elasticsearch
     clear_es_client(es_client)
 
     # On récupère les documents
-    documents = get_mongodb_data(collection)
+    documents = get_mongodb_data(porsche_collection)
 
     # Dans un second temps, on indexe nos données
     indexation(es_client, documents)
 
 
 # On instancie notre application Flask
-app = Flask(__name__)
 # On récupère la collection
-collection = log_mongodb(app)
 # On indexe notre collection
-create_es(es_client=es, collection=collection)
+app = Flask(__name__)
+collection = log_mongodb(app)
+create_es(es_client=es, porsche_collection=collection)
 
 
 @app.route('/', methods=['GET'])
@@ -78,8 +73,7 @@ def home():
     dossier 'templates'
     """
     # Récupération des paramètres pour le filtrage
-    initial_min_price = request.args.get('initial-price-min')
-    initial_max_price = request.args.get('initial-price-max')
+    initial_min_price = request.args.get('price-min', type=str)
 
     print('min', initial_min_price)
 
@@ -123,190 +117,56 @@ def visualisation():
     porsche_models_informations = get_mongodb_data(collection)
 
     # Initialise les listes pour stocker les informations
-    acceleration = []
-    top_speed = []
-    porsche_price = []
-    porsche_name = []
-    l_100_min = []
-    l_100_max = []
-    power_ch = []
-    power_kw = []
-
-    # Dictionnaire des figures
-    figs = {}
+    data = {
+        "acceleration": [],
+        "top_speed": [],
+        "porsche_price": [],
+        "porsche_name": [],
+        "l_100_min": [],
+        "l_100_max": [],
+        "power_ch": [],
+        "power_kw": []
+    }
 
     # On constitue les listes d'informations sur les modèles de Porsche
     for info in porsche_models_informations:
-        acceleration.append(info.get('acceleration'))
-        top_speed.append(info.get('top_speed'))
-        porsche_price.append(info.get('porsche_price'))
-        porsche_name.append(info.get('porsche_name'))
-        l_100_min.append(info.get('l_100_min'))
-        l_100_max.append(info.get('l_100_max'))
-        power_ch.append(info.get('power_ch'))
-        power_kw.append(info.get('power_kw'))
+        for key in data.keys():
+            data[key].append(info.get(key))
 
-    # Prix vs Accélération
-    fig_price_acc = go.Figure(data=[
-        go.Scatter(
-            x=acceleration,
-            y=porsche_price,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
+    # Création des graphiques
+    graphs = {}
+
+    graph_info = [
+        ("Prix vs Accélération", "Accélération (0-100 km/h en secondes)", "Prix (en EUR)", "acceleration", "porsche_price"),
+        ("Prix vs Vitesse", "Vitesse (km/h)", "Prix (en EUR)", "top_speed", "porsche_price"),
+        ("Prix vs l_100_max", "l_100_max (litres/100 km)", "Prix (en EUR)", "l_100_max", "porsche_price"),
+        ("Prix vs Puissance", "Puissance (ch)", "Prix (en EUR)", "power_ch", "porsche_price"),
+        ("Puissance vs Vitesse", "Vitesse (km/h)", "Puissance (ch)", "top_speed", "power_ch"),
+        ("Puissance vs Accélération", "Accélération (0-100 km/h en secondes)", "Puissance (ch)", "acceleration", "power_ch"),
+        ("Puissance vs Litres/100 km", "l_100_max (litres/100 km)", "Puissance (ch)", "l_100_max", "power_ch"),
+        ("Vitesse vs Accélération", "Accélération (0-100 km/h en secondes)", "Vitesse (km/h)", "acceleration", "top_speed")
+    ]
+
+    for title, x_title, y_title, x_data, y_data in graph_info:
+        fig = go.Figure(data=[
+            go.Scatter(
+                x=data[x_data],
+                y=data[y_data],
+                mode='markers',
+                marker=dict(color='#f9f9f9')
+            )
+        ])
+        fig.update_layout(
+            title=title,
+            xaxis_title=x_title,
+            yaxis_title=y_title,
+            margin=dict(l=40, r=40, t=40, b=40),
+            plot_bgcolor='#1A1A1A',
+            legend=dict(font_color='#1A1A1A')
         )
-    ])
-    fig_price_acc.update_layout(
-        title='Prix vs Accélération',
-        xaxis_title='Accélération (0-100 km/h en secondes)',
-        yaxis_title='Prix (en EUR)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_price_acc = json.dumps(fig_price_acc, cls=plotly.utils.PlotlyJSONEncoder)
+        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
-    # Prix vs Vitesse
-    fig_price_speed = go.Figure(data=[
-        go.Scatter(
-            x=top_speed,
-            y=porsche_price,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_price_speed.update_layout(
-        title='Prix vs Vitesse',
-        xaxis_title='Vitesse (km/h)',
-        yaxis_title='Prix (en EUR)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_price_speed = json.dumps(fig_price_speed, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Prix vs l_100_max
-    fig_price_100 = go.Figure(data=[
-        go.Scatter(
-            x=acceleration,
-            y=l_100_max,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_price_100.update_layout(
-        title='Prix vs l_100_max',
-        xaxis_title='l_100_max (litres/100 km)',
-        yaxis_title='Prix (en EUR)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_price_100 = json.dumps(fig_price_100, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Prix vs Puissance
-    fig_price_power = go.Figure(data=[
-        go.Scatter(
-            x=power_ch,
-            y=porsche_price,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_price_power.update_layout(
-        title='Prix vs Puissance',
-        xaxis_title='Puissance (ch)',
-        yaxis_title='Prix (en EUR)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_price_power = json.dumps(fig_price_power, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Puissance vs Vitesse
-    fig_power_speed = go.Figure(data=[
-        go.Scatter(
-            x=top_speed,
-            y=power_ch,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_power_speed.update_layout(
-        title='Puissance vs Vitesse',
-        xaxis_title='Vitesse (km/h)',
-        yaxis_title='Puissance (ch)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_power_speed = json.dumps(fig_power_speed, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Puissance vs Acceleration
-    fig_power_acc = go.Figure(data=[
-        go.Scatter(
-            x=acceleration,
-            y=power_ch,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_power_acc.update_layout(
-        title='Puissance vs Accélération',
-        xaxis_title='Accélération (0-100 km/h en secondes)',
-        yaxis_title='Puissance (ch)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_power_acc = json.dumps(fig_power_acc, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Puissance vs Litre/100
-    fig_power_100 = go.Figure(data=[
-        go.Scatter(
-            x=l_100_max,
-            y=power_ch,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_power_100.update_layout(
-        title='Puissance vs Litres/100 km',
-        xaxis_title='l_100_max (litres/100 km)',
-        yaxis_title='Puissance (ch)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_power_100 = json.dumps(fig_power_100, cls=plotly.utils.PlotlyJSONEncoder)
-
-    # Vitesse vs Acceleration
-    fig_speed_acc = go.Figure(data=[
-        go.Scatter(
-            x=acceleration,
-            y=top_speed,
-            mode='markers',
-            marker=dict(color='#f9f9f9')
-        )
-    ])
-    fig_speed_acc.update_layout(
-        title='Vitesse vs Accélération',
-        xaxis_title='Accélération (0-100 km/h en secondes)',
-        yaxis_title='Vitesse (km/h)',
-        margin=dict(l=40, r=40, t=40, b=40),
-        plot_bgcolor='#1A1A1A',
-        legend=dict(font_color='#1A1A1A')
-    )
-    graph_speed_acc = json.dumps(fig_speed_acc, cls=plotly.utils.PlotlyJSONEncoder)
-
-    return render_template('visualisation.html',
-                           graph_power_acc=graph_power_acc,
-                           graph_power_speed=graph_power_speed,
-                           graph_speed_acc=graph_speed_acc,
-                           graph_power_100=graph_power_100,
-                           graph_price_power=graph_price_power,
-                           graph_price_100=graph_price_100,
-                           graph_price_speed=graph_price_speed,
-                           graph_price_acc=graph_price_acc)
+    return render_template('visualisation.html', graphs=graphs)
 
 
 if __name__ == '__main__':

@@ -16,47 +16,110 @@
 
 <!-- Contient le body associé à la page web -->
 {% block body %}
-    <!-- Contient les graphiques -->
-    <div class="graph" id="price-acceleration"></div>
-    <div class="graph" id="price-speed"></div>
-    <div class="graph" id="price-l100max"></div>
-    <div class="graph" id="price-power"></div>
-    <div class="graph" id="power-speed"></div>
-    <div class="graph" id="power-acc"></div>
-    <div class="graph" id="power-l100"></div>
-    <div class="graph" id="speed-acc"></div>
+    <!-- Contient les graphiques et le texte pour Prix/Accélération -->
+    <div class="graph" id="graph_acceleration_porsche_price"></div>
+    <div class="analyse-graph" id="analyse-graph_acceleration_porsche_price">
+        <p>
+            On observe une corrélation entre le prix et l'accélération. En effet,
+            seuls des modèles supérieurs à 200k € permettent une montée de 0 à 100
+            km/h en moins de 3 secondes.
+        </p>
+    </div>
 
-    <script>
-        // Render the graph for price-acceleration
-        var graphPriceAcc = {{ graph_price_acc|safe }};
-        Plotly.newPlot('price-acceleration', graphPriceAcc.data, graphPriceAcc.layout);
+    <!-- Contient les graphiques et le texte pour Prix/Vitesse -->
+    <div class="graph" id="graph_top_speed_porsche_price"></div>
+    <div class="analyse-graph" id="analyse-graph_top_speed_porsche_price">
+        <p>
+            On observe de nouveau une corrélation entre le prix et une autre
+            caractéristique. Cette fois-ci, la vitesse maximale sur circuit. En
+            effet, seuls des modèles supérieurs à 150k € permettent une vitesse
+            de pointe à plus de 300km/h. Il faut monter au-delà des 215k € pour
+            atteindre une vitesse de pointe supérieure à 320 km/h.
+        </p>
+    </div>
 
-        // Render the graph for price-speed
-        var graphPriceSpeed = {{ graph_price_speed|safe }};
-        Plotly.newPlot('price-speed', graphPriceSpeed.data, graphPriceSpeed.layout);
+    <!-- Contient les graphiques et le texte pour Prix/L100 -->
+    <div class="graph" id="graph_l_100_max_porsche_price"></div>
+    <div class="analyse-graph" id="analyse-graph_acceleration_l_100_max">
+        <p>
+            On observe cette fois une nouvelle tendance entre le prix et la
+            valeur du 'litre/100'. Contrairement à d'habitude, il n'y a pas de
+            schéma linéaire.
 
-        // Render the graph for price-l100max
-        var graphPriceL100Max = {{ graph_price_100|safe }};
-        Plotly.newPlot('price-l100max', graphPriceL100Max.data, graphPriceL100Max.layout);
+            Cela s'explique par la présence de voitures électriques d'où des
+            L/100 inférieurs à 2. 1.8 L/100 km est sensiblement une valeur
+            commune aux modèles électriques malgré des prix différents.
 
-        // Render the graph for price-power
-        var graphPricePower = {{ graph_price_power|safe }};
-        Plotly.newPlot('price-power', graphPricePower.data, graphPricePower.layout);
+            Enfin, pour les modèles dits 'classiques', on retrouve une linéarité.
+            En effet, plus le prix du modèle est élevé, plus son litre/100 aussi.
+            Cela pourrait s'expliquer par une plus grande accélération et vitesse,
+            amenant ainsi à une plus grande consommation. La corrélation est donc
+            forte entre le prix, la vitesse et l'accélération.
+        </p>
+    </div>
 
-        // Render the graph for power-speed
-        var graphPowerSpeed = {{ graph_power_speed|safe }};
-        Plotly.newPlot('power-speed', graphPowerSpeed.data, graphPowerSpeed.layout);
+    <div class="graph" id="graph_power_ch_porsche_price"></div>
+    <div class="analyse-graph" id="analyse-graph_power_ch_porsche_price">
+        <p>
+            La puissance et le prix des modèles semblent avoir une relation
+            positive, vec une tendance à l'augmentation du prix à mesure que la
+            puissance en chevaux augmente. Cependant, certains modèles présentent
+            une puissance élevée sans pour autant avoir un prix excessivement
+            élevé, indiquant que d'autres facteurs peuvent influencer le prix
+            final d'un modèle.
+        </p>
+    </div>
 
-        // Render the graph for power-acc
-        var graphPowerAcc = {{ graph_power_acc|safe }};
-        Plotly.newPlot('power-acc', graphPowerAcc.data, graphPowerAcc.layout);
+    <div class="graph" id="graph_top_speed_power_ch"></div>
+    <div class="analyse-graph" id="analyse-graph_top_speed_power_ch">
+        <p>
+            L'analyse montre que la vitesse maximale et la puissance en chevaux
+            sont corrélées, suggérant que les modèles avec une plus grande
+            puissance atteignent des vitesses plus élevées. Ceci est conforme
+            aux attentes, puisque la puissance du moteur est un facteur clé de
+            la performance en vitesse de pointe.
+        </p>
+    </div>
 
-        // Render the graph for power-l100
-        var graphPowerL100 = {{ graph_power_100|safe }};
-        Plotly.newPlot('power-l100', graphPowerL100.data, graphPowerL100.layout);
+    <div class="graph" id="graph_acceleration_power_ch"></div>
+    <div class="analyse-graph" id="analyse-graph_acceleration_power_ch">
+        <p>
+            Ce graphique montre que des voitures avec une puissance plus élevée
+            tendent à avoir une meilleure accélération, capable d'atteindre le 0
+            à 100 km/h en moins de temps. Cette tendance est logique, car une
+            plus grande puissance signifie généralement une capacité
+            d'accélération plus rapide.
+        </p>
+    </div>
 
-        // Render the graph for speed-acc
-        var graphSpeedAcc = {{ graph_speed_acc|safe }};
-        Plotly.newPlot('speed-acc', graphSpeedAcc.data, graphSpeedAcc.layout);
-    </script>
+    <div class="graph" id="graph_l_100_max_power_ch"></div>
+    <div class="analyse-graph" id="analyse-graph_l_100_max_power_ch">
+        <p>
+            Ici, nous voyons que la consommation de carburant (litres/100 km)
+            augmente avec la puissance des voitures. Les modèles à hautes
+            performances ont tendance à consommer davantage de carburant, ce qui
+            est reflété dans les mesures des litres/100, bien que cela ne soit
+            pas toujours proportionnel en raison de l'efficacité variable des
+            moteurs.
+        </p>
+    </div>
+
+    <div class="graph" id="graph_acceleration_top_speed"></div>
+    <div class="analyse-graph" id="analyse-graph_acceleration_top_speed">
+        <p>
+            La relation entre l'accélération et la vitesse de pointe suggère que
+            les véhicules capables d'atteindre des vitesses plus élevées ont
+            également tendance à avoir de meilleures performances d'accélération.
+            Cela indique que les caractéristiques de performance telles que la
+            vitesse maximale et l'accélération sont souvent améliorées de concert.
+        </p>
+    </div>
+
+    {% for graph_id, graph_data in graphs.items() %}
+        <!-- Contient les scripts pour générer les graphiques -->
+        <script>
+            var graph_{{ graph_id }} = {{ graph_data | safe }};
+            Plotly.newPlot('{{ graph_id }}', graph_{{ graph_id }}.data, graph_{{ graph_id }}.layout);
+        </script>
+    {% endfor %}
 {% endblock %}

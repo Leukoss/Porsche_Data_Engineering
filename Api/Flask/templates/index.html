@@ -18,7 +18,6 @@
 <!-- Contient le body associé à la page web -->
 {% block body %}
     <div class="row-filter">
-
         <form id="priceRangeForme" action="{{ url_for('home') }}" method="GET">
             <div class="wrapper-price">
                 <!-- Correspond à la catégorie -->
@@ -31,7 +30,6 @@
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
                         <input type="number" class="input-min" name="price-min" id="price-min" value="65000">
-                        <input type="hidden" name="initial-price-min" value="{{ initialMinPrice }}">
                     </div>
 
                     <div class="separator">-</div>
@@ -39,7 +37,6 @@
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
                         <input type="number" class="input-max" name="price-max" id="price-max" value="309000">
-                        <input type="hidden" name="initial-price-max" value="{{ initialMaxPrice }}">
                     </div>
                 </div>
 
@@ -54,6 +51,11 @@
                     <input type="range" class="range-max" min="0" max="310000" name="price-max-range" value="309000" step="1000">
                 </div>
             </div>
+
+            <input type="hidden" name="initial-price-min" value="{{ initialMinPrice }}">
+            <input type="hidden" name="initial-price-max" value="{{ initialMaxPrice }}">
+            <!-- Vitesse.... -->
+
         </form>
 
 
