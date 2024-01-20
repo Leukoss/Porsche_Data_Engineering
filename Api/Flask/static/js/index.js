@@ -150,65 +150,33 @@ rangeAccelerationInput.forEach(input => {
     });
 });
 
-// Collecte le Forme
 const allForme = document.getElementById('allForme');
 
-// Collecte les valeurs des filtres des prix
+function addChangeEventListenerAndSubmit(selectElement) {
+    selectElement.addEventListener('change', () => {
+        allForme.submit();
+    });
+}
+
 const minPriceSelect = document.getElementById('price-min-range');
 const maxPriceSelect = document.getElementById('price-max-range');
-
-// Collecte les valeurs des filtres des L/100
 const minL100Select = document.getElementById('l-100-min-range');
 const maxL100Select = document.getElementById('l-100-max-range');
-
-// Collecte les valeurs des filtres des vitesses
 const minSpeedSelect = document.getElementById('speed-min-range');
 const maxSpeedSelect = document.getElementById('speed-max-range');
-
-// Collecte les valeurs des filtres des puissances
 const minPowerSelect = document.getElementById('power-min-range');
 const maxPowerSelect = document.getElementById('power-max-range');
-
-// Collecte les valeurs des filtres des accélérations
 const minAcccelSelect = document.getElementById('accel-min-range');
 const maxAccelSelect = document.getElementById('accel-max-range');
 
-minPriceSelect.addEventListener('change', () => {
-    allForme.submit();
-});
+addChangeEventListenerAndSubmit(minPriceSelect);
+addChangeEventListenerAndSubmit(maxPriceSelect);
+addChangeEventListenerAndSubmit(minL100Select);
+addChangeEventListenerAndSubmit(maxL100Select);
+addChangeEventListenerAndSubmit(minSpeedSelect);
+addChangeEventListenerAndSubmit(maxSpeedSelect);
+addChangeEventListenerAndSubmit(minPowerSelect);
+addChangeEventListenerAndSubmit(maxPowerSelect);
+addChangeEventListenerAndSubmit(minAcccelSelect);
+addChangeEventListenerAndSubmit(maxAccelSelect);
 
-maxPriceSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-minSpeedSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-maxSpeedSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-minL100Select.addEventListener('change', () => {
-    allForme.submit();
-});
-
-maxL100Select.addEventListener('change', () => {
-    allForme.submit();
-});
-
-minPowerSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-maxPowerSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-minAcccelSelect.addEventListener('change', () => {
-    allForme.submit();
-});
-
-maxAccelSelect.addEventListener('change', () => {
-    allForme.submit();
-});
