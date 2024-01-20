@@ -209,8 +209,6 @@ rangeSpeedInput.forEach(input => {
     });
 });
 
-const min_price = document.getElementsByName('price-min')
-const max_price = document.getElementsByName('price-max')
 const min_speed = document.getElementsByName('speed-min')
 const max_speed = document.getElementsByName('speed-max')
 const min_l_100 = document.getElementsByName('l-100-min')
@@ -219,3 +217,11 @@ const min_power = document.getElementsByName('power-min')
 const max_power = document.getElementsByName('power-max')
 const min_acc = document.getElementsByName('acc-min')
 const max_acc = document.getElementsByName('acc-max')
+
+document.addEventListener("DOMContentLoaded", function () {
+    const priceMinInput = document.getElementById("price-min");
+    const priceMaxInput = document.getElementById("price-max");
+
+    const initialMinPrice = parseInt(priceMinInput.value);
+    const initialMaxPrice = parseInt(priceMaxInput.value);
+});

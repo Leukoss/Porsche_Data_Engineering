@@ -6,6 +6,7 @@
 <!-- Ajout d'une stylesheet propre à cette page -->
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/visualisation.css') }}">
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 {% endblock %}
 
 <!-- Permet de pouvoir ajuster le titre dans chaque page -->
@@ -16,7 +17,46 @@
 <!-- Contient le body associé à la page web -->
 {% block body %}
     <!-- Contient les graphiques -->
-    <div class="graph">
-        graphique
-    </div>
+    <div class="graph" id="price-acceleration"></div>
+    <div class="graph" id="price-speed"></div>
+    <div class="graph" id="price-l100max"></div>
+    <div class="graph" id="price-power"></div>
+    <div class="graph" id="power-speed"></div>
+    <div class="graph" id="power-acc"></div>
+    <div class="graph" id="power-l100"></div>
+    <div class="graph" id="speed-acc"></div>
+
+    <script>
+        // Render the graph for price-acceleration
+        var graphPriceAcc = {{ graph_price_acc|safe }};
+        Plotly.newPlot('price-acceleration', graphPriceAcc.data, graphPriceAcc.layout);
+
+        // Render the graph for price-speed
+        var graphPriceSpeed = {{ graph_price_speed|safe }};
+        Plotly.newPlot('price-speed', graphPriceSpeed.data, graphPriceSpeed.layout);
+
+        // Render the graph for price-l100max
+        var graphPriceL100Max = {{ graph_price_100|safe }};
+        Plotly.newPlot('price-l100max', graphPriceL100Max.data, graphPriceL100Max.layout);
+
+        // Render the graph for price-power
+        var graphPricePower = {{ graph_price_power|safe }};
+        Plotly.newPlot('price-power', graphPricePower.data, graphPricePower.layout);
+
+        // Render the graph for power-speed
+        var graphPowerSpeed = {{ graph_power_speed|safe }};
+        Plotly.newPlot('power-speed', graphPowerSpeed.data, graphPowerSpeed.layout);
+
+        // Render the graph for power-acc
+        var graphPowerAcc = {{ graph_power_acc|safe }};
+        Plotly.newPlot('power-acc', graphPowerAcc.data, graphPowerAcc.layout);
+
+        // Render the graph for power-l100
+        var graphPowerL100 = {{ graph_power_100|safe }};
+        Plotly.newPlot('power-l100', graphPowerL100.data, graphPowerL100.layout);
+
+        // Render the graph for speed-acc
+        var graphSpeedAcc = {{ graph_speed_acc|safe }};
+        Plotly.newPlot('speed-acc', graphSpeedAcc.data, graphSpeedAcc.layout);
+    </script>
 {% endblock %}

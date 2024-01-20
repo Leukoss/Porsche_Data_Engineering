@@ -18,49 +18,6 @@ def generate_data(documents):
         }
 
 
-def clear_es_client(es_client=es, index="porsches") -> None:
-    """
-    Permet de clear le client elasticsearch pour de nouvelles recherches
-    :param es_client: client elasticSearch
-    :param index: index à clear
-    """
-    # delete_by_query afin de supprimer tous les éléments
-    response = es_client.delete_by_query(
-        index=index,
-        body={
-            "query": {
-                "match_all": {}
-            }
-        }
-    )
-
-    # Rafraîchissement de l'index pour s'assurer que les modifications soient
-    # faites
-    es_client.indices.refresh(index=index)
-
-
-def indexation(es_client, documents) -> None:
-    """
-    Permet de créer un index ElasticSearch_api
-    :param es_client: client ElasticSearch_api
-    :param documents: à indexer
-    """
-    index_name = 'porsches'
-
-    try:
-        # Si l'index existe déjà
-        if not es.indices.exists(index=index_name):
-            es_client.indices.create(index=index_name)
-
-        # Réalise l'indexation
-        response = bulk(es_client, generate_data(documents))
-
-        # S'assure que les index sont à jour
-        es_client.indices.refresh(index=index_name)
-    except Exception as error:
-        print(error)
-
-
 def search_porsche_model(index_name, l_100_min, l_100_max, power_ch_min,
                          power_ch_max, top_speed_min, top_speed_max,
                          acceleration_min, acceleration_max, porsche_price_min,
@@ -112,3 +69,52 @@ def search_porsche_model(index_name, l_100_min, l_100_max, power_ch_min,
     hits = results.get('hits', {}).get('hits', [])
 
     return hits
+
+
+def clear_es_client(es_client=es, index="porsches"):
+    """
+    Permet de clear le client elasticsearch pour de nouvelles recherches
+    :param es_client: client elasticSearch
+    :param index: index à clear
+    """
+    # Check if the index exists before attempting to delete documents
+    if es_client.indices.exists(index=index):
+        body_query = {
+            "query": {
+                "match_all": {}
+            }
+        }
+
+        # delete_by_query afin de supprimer tous les éléments
+        response = es_client.delete_by_query(
+            index=index,
+            body=body_query
+        )
+
+        # Rafraîchissement de l'index pour s'assurer que les modifications
+        # soient faites
+        es_client.indices.refresh(index=index)
+    else:
+        print(f"The index '{index}' does not exist.")
+
+
+def indexation(es_client, documents):
+    """
+    Permet de créer un index ElasticSearch_api
+    :param es_client: client ElasticSearch_api
+    :param documents: à indexer
+    """
+    index_name = 'porsches'
+
+    try:
+        # Si l'index existe déjà
+        if not es.indices.exists(index=index_name):
+            es_client.indices.create(index=index_name)
+
+        # Réalise l'indexation
+        response = bulk(es_client, generate_data(documents))
+
+        # S'assure que les index sont à jour
+        es_client.indices.refresh(index=index_name)
+    except Exception as error:
+        print(error)
