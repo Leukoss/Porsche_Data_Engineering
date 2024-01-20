@@ -1,7 +1,7 @@
 /* FILTERING STYLES */
 
 /* Style pour la ligne de filtres */
-.row-filter {
+#allForme {
     padding: 20px;
     flex-grow: 1;
     display: flex;

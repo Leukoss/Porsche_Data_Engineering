@@ -150,67 +150,65 @@ rangeAccelerationInput.forEach(input => {
     });
 });
 
+// Collecte le Forme
+const allForme = document.getElementById('allForme');
+
 // Collecte les valeurs des filtres des prix
-const priceRangeForme = document.getElementById('priceRangeForme');
 const minPriceSelect = document.getElementById('price-min-range');
 const maxPriceSelect = document.getElementById('price-max-range');
 
-minPriceSelect.addEventListener('change', () => {
-    priceRangeForme.submit();
-});
-
-maxPriceSelect.addEventListener('change', () => {
-    priceRangeForme.submit();
-});
-
-// Collecte les valeurs des filtres des vitesses
-const speedRangeForme = document.getElementById('speedRangeForme');
-const minSpeedSelect = document.getElementById('speed-min-range');
-const maxSpeedSelect = document.getElementById('speed-max-range');
-
-minSpeedSelect.addEventListener('change', () => {
-    speedRangeForme.submit();
-});
-
-maxSpeedSelect.addEventListener('change', () => {
-    speedRangeForme.submit();
-});
-
 // Collecte les valeurs des filtres des L/100
-const l100RangeForme = document.getElementById('l100RangeForme');
 const minL100Select = document.getElementById('l-100-min-range');
 const maxL100Select = document.getElementById('l-100-max-range');
 
-minL100Select.addEventListener('change', () => {
-    l100RangeForme.submit();
-});
-
-maxL100Select.addEventListener('change', () => {
-    l100RangeForme.submit();
-});
+// Collecte les valeurs des filtres des vitesses
+const minSpeedSelect = document.getElementById('speed-min-range');
+const maxSpeedSelect = document.getElementById('speed-max-range');
 
 // Collecte les valeurs des filtres des puissances
-const powerRangeForme = document.getElementById('powerRangeForme');
 const minPowerSelect = document.getElementById('power-min-range');
 const maxPowerSelect = document.getElementById('power-max-range');
 
-minPowerSelect.addEventListener('change', () => {
-    powerRangeForme.submit();
-});
-
-maxPowerSelect.addEventListener('change', () => {
-    powerRangeForme.submit();
-});
-
 // Collecte les valeurs des filtres des accélérations
-const accelerationRangeForme = document.getElementById('accelerationRangeForme');
 const minAcccelSelect = document.getElementById('accel-min-range');
 const maxAccelSelect = document.getElementById('accel-max-range');
 
+minPriceSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
+maxPriceSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
+minSpeedSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
+maxSpeedSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
+minL100Select.addEventListener('change', () => {
+    allForme.submit();
+});
+
+maxL100Select.addEventListener('change', () => {
+    allForme.submit();
+});
+
+minPowerSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
+maxPowerSelect.addEventListener('change', () => {
+    allForme.submit();
+});
+
 minAcccelSelect.addEventListener('change', () => {
-    accelerationRangeForme.submit();
+    allForme.submit();
 });
 
 maxAccelSelect.addEventListener('change', () => {
-    accelerationRangeForme.submit();
+    allForme.submit();
 });

@@ -19,11 +19,9 @@
 {% block body %}
     <!-- Contient la ligne de filtre -->
     <div class="row-filter">
-
-        <!-- Contient le filtre du Prix -->
-        <div class="wrapper">
-             <!-- Contient le form du Prix -->
-            <form id="priceRangeForme" action="{{ url_for('home') }}" method="GET">
+        <form id="allForme" action="{{ url_for('home') }}" method="GET">
+            <!-- Contient le filtre du Prix -->
+            <div class="wrapper">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>Prix TTC</h2>
@@ -54,25 +52,10 @@
                     <input type="range" class="range-price-min" min="0" max="310000" name="price-min-range" id="price-min-range" value="65000" step="1000">
                     <input type="range" class="range-price-max" min="0" max="310000" name="price-max-range" id="price-max-range" value="309000" step="1000">
                 </div>
+            </div>
 
-                <!-- Différents filtres à retenir -->
-                <input type="hidden" name="min_price" value="{{ min_price }}">
-                <input type="hidden" name="max_price" value="{{ max_price }}">
-                <input type="hidden" name="min_speed" value="{{ min_speed }}">
-                <input type="hidden" name="max_speed" value="{{ max_speed }}">
-                <input type="hidden" name="min_accel" value="{{ min_accel }}">
-                <input type="hidden" name="max_accel" value="{{ max_accel }}">
-                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-                <input type="hidden" name="min_power" value="{{ min_power }}">
-                <input type="hidden" name="max_power" value="{{ max_power }}">
-            </form>
-        </div>
-
-        <!-- Correspond aux Vitesses -->
-        <div class="wrapper">
-            <!-- Contient le form de la Vitesse -->
-            <form id="speedRangeForme" action="{{ url_for('home') }}" method="GET">
+            <!-- Correspond aux Vitesses -->
+            <div class="wrapper">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>Vitesse Maximale</h2>
@@ -103,25 +86,10 @@
                     <input type="range" class="range-speed-min" min="0" max="350" id="speed-min-range" value="0" step="1">
                     <input type="range" class="range-speed-max" min="0" max="350" id="speed-max-range" value="350" step="1">
                 </div>
+            </div>
 
-                <!-- Différents filtres à retenir -->
-                <input type="hidden" name="min_price" value="{{ request.args.get('min_price', '') }}">
-                <input type="hidden" name="max_price" value="{{ max_price }}">
-                <input type="hidden" name="min_speed" value="{{ min_speed }}">
-                <input type="hidden" name="max_speed" value="{{ max_speed }}">
-                <input type="hidden" name="min_accel" value="{{ min_accel }}">
-                <input type="hidden" name="max_accel" value="{{ max_accel }}">
-                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-                <input type="hidden" name="min_power" value="{{ min_power }}">
-                <input type="hidden" name="max_power" value="{{ max_power }}">
-            </form>
-        </div>
-
-        <!-- Correspond aux L/100 -->
-        <div class="wrapper">
-            <!-- Contient le form de la Vitesse -->
-            <form id="l100RangeForme" action="{{ url_for('home') }}" method="GET">
+            <!-- Correspond aux L/100 -->
+            <div class="wrapper">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>Litres/100 km</h2>
@@ -152,25 +120,10 @@
                     <input type="range" class="range-l-100-min" min="0" max="20" id='l-100-min-range' value="5" step="1">
                     <input type="range" class="range-l-100-max" min="0" max="20" id='l-100-max-range' value="15" step="1">
                 </div>
+            </div>
 
-                <!-- Différents filtres à retenir -->
-                <input type="hidden" name="min_price" value="{{ min_price }}">
-                <input type="hidden" name="max_price" value="{{ max_price }}">
-                <input type="hidden" name="min_speed" value="{{ min_speed }}">
-                <input type="hidden" name="max_speed" value="{{ max_speed }}">
-                <input type="hidden" name="min_accel" value="{{ min_accel }}">
-                <input type="hidden" name="max_accel" value="{{ max_accel }}">
-                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-                <input type="hidden" name="min_power" value="{{ min_power }}">
-                <input type="hidden" name="max_power" value="{{ max_power }}">
-            </form>
-        </div>
-
-        <!-- Correspond aux Puissances (ch) -->
-        <div class="wrapper">
-            <!-- Contient le form de la Vitesse -->
-            <form id="powerRangeForme" action="{{ url_for('home') }}" method="GET">
+            <!-- Correspond aux Puissances (ch) -->
+            <div class="wrapper">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>Puissance en CH</h2>
@@ -201,25 +154,10 @@
                     <input type="range" class="range-power-min" min="0" max="800" id="power-min-range" value="100" step="10">
                     <input type="range" class="range-power-max" min="0" max="800" id="power-max-range" value="750" step="10">
                 </div>
+            </div>
 
-                <!-- Différents filtres à retenir -->
-                <input type="hidden" name="min_price" value="{{ min_price }}">
-                <input type="hidden" name="max_price" value="{{ max_price }}">
-                <input type="hidden" name="min_speed" value="{{ min_speed }}">
-                <input type="hidden" name="max_speed" value="{{ max_speed }}">
-                <input type="hidden" name="min_accel" value="{{ min_accel }}">
-                <input type="hidden" name="max_accel" value="{{ max_accel }}">
-                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-                <input type="hidden" name="min_power" value="{{ min_power }}">
-                <input type="hidden" name="max_power" value="{{ max_power }}">
-            </form>
-        </div>
-
-        <!-- Correspond aux Accélérations -->
-        <div class="wrapper">
-            <!-- Contient le form de la Vitesse -->
-            <form id="accelerationRangeForme" action="{{ url_for('home') }}" method="GET">
+            <!-- Correspond aux Accélérations -->
+            <div class="wrapper">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>0-100 km/h</h2>
@@ -250,20 +188,20 @@
                     <input type="range" class="range-acceleration-min" min="0" max="10" id="accel-min-range" value="1" step="1">
                     <input type="range" class="range-acceleration-max" min="0" max="10" id="accel-max-range" value="9" step="1">
                 </div>
+            </div>
 
-                <!-- Différents filtres à retenir -->
-                <input type="hidden" name="min_price" value="{{ min_price }}">
-                <input type="hidden" name="max_price" value="{{ max_price }}">
-                <input type="hidden" name="min_speed" value="{{ min_speed }}">
-                <input type="hidden" name="max_speed" value="{{ max_speed }}">
-                <input type="hidden" name="min_accel" value="{{ min_accel }}">
-                <input type="hidden" name="max_accel" value="{{ max_accel }}">
-                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-                <input type="hidden" name="min_power" value="{{ min_power }}">
-                <input type="hidden" name="max_power" value="{{ max_power }}">
-            </form>
-        </div>
+            <!-- Différents filtres à retenir -->
+            <input type="hidden" name="min_price" value="{{ min_price }}">
+            <input type="hidden" name="max_price" value="{{ max_price }}">
+            <input type="hidden" name="min_speed" value="{{ min_speed }}">
+            <input type="hidden" name="max_speed" value="{{ max_speed }}">
+            <input type="hidden" name="min_accel" value="{{ min_accel }}">
+            <input type="hidden" name="max_accel" value="{{ max_accel }}">
+            <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+            <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+            <input type="hidden" name="min_power" value="{{ min_power }}">
+            <input type="hidden" name="max_power" value="{{ max_power }}">
+        </form>
 
         <!-- Correspond aux scripts pour les filtres -->
         <script src="../static/js/index.js"></script>
