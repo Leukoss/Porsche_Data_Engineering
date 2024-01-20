@@ -1,16 +1,17 @@
 /* FILTERING STYLES */
 
+/* Style pour la ligne de filtres */
 .row-filter {
     padding: 20px;
     flex-grow: 1;
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-between; /* Adjust to control spacing between columns */
+    justify-content: space-between;
     max-width: 100%;
 }
 
 /* Style pour toutes les cartes de filtre */
-.wrapper-price, .wrapper-speed, .wrapper-l-100, .wrapper-power, .wrapper-acceleration {
+.wrapper {
   width: calc(18% - 20px);
   background: #fff;
   border-radius: 10px;
@@ -32,7 +33,7 @@ header h2{
 }
 
 /* Style pour les boîtes contenant les valeurs min/max */
-.price-input .field, .speed-input .field-speed, .l-100-input .field-l-100, .power-input .field-power, .acceleration-input .field-acceleration {
+.field {
   display: flex;
   width: 100%;
   height: 45px;
@@ -40,7 +41,7 @@ header h2{
 }
 
 /* Style pour les boîtes contenant les valeurs min/max */
-.field input, .field-speed input, .field-l-100 input, .field-power input, .field-acceleration input {
+.field input {
   width: 100%;
   height: 100%;
   outline: none;
@@ -52,6 +53,7 @@ header h2{
   -moz-appearance: textfield;
 }
 
+/* Style associé au séprateur Min/Max */
 .separator{
   width: 130px;
   display: flex;
@@ -60,19 +62,22 @@ header h2{
   justify-content: center;
 }
 
+/* Style associé aux bouttons min/max */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
   -webkit-appearance: none;
 }
 
-.slider, .slider-speed, .slider-l-100, .slider-power, .slider-acceleration {
+/* Permet de mettre le style sur la barre */
+.slider {
   height: 5px;
   position: relative;
   background: #ddd;
   border-radius: 5px;
 }
 
-.slider .progress, .slider-speed .progress-speed, .slider-l-100 .progress-l-100, .slider-power .progress-power, .slider-acceleration .progress-acceleration {
+/* Permet de mettre le style sur la barre bis */
+.progress-price, .progress-speed, .progress-l-100, .progress-power, .progress-acceleration {
   height: 100%;
   left: 25%;
   right: 25%;
@@ -81,6 +86,7 @@ input[type="number"]::-webkit-inner-spin-button {
   background: #b81717;
 }
 
+/* Permet de mettre le style sur la barre bis */
 input[type="range"]::-webkit-slider-thumb {
   height: 17px;
   width: 17px;
@@ -91,10 +97,12 @@ input[type="range"]::-webkit-slider-thumb {
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
 }
 
-.range-input, .range-speed-input, .range-l-100-input, .range-acceleration-input, .range-power-input {
+/* Style pour les curseurs de filtre */
+.range-price, .range-speed, .range-l-100, .range-acceleration, .range-power {
   position: relative;
 }
 
+/* Style pour les barres de filtre */
 input[type="range"]::-moz-range-thumb {
   height: 17px;
   width: 17px;
@@ -106,7 +114,8 @@ input[type="range"]::-moz-range-thumb {
   box-shadow: 0 0 6px rgba(0,0,0,0.05);
 }
 
-.range-input input, .range-speed-input input, .range-l-100-input input, .range-acceleration-input input, .range-power-input input {
+/* Style pour toutes les cartes de filtre */
+.range-price input, .range-speed input, .range-l-100 input, .range-acceleration input, .range-power input {
   position: absolute;
   width: 100%;
   height: 5px;

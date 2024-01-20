@@ -73,12 +73,39 @@ def home():
     dossier 'templates'
     """
     # Récupération des paramètres pour le filtrage
-    initial_min_price = request.args.get('price-min', type=str)
+    min_price = request.args.get('price-min', type=str)
+    max_price = request.args.get('price-max', type=str)
+    min_speed = request.args.get('speed-min', type=str)
+    max_speed = request.args.get('speed-max', type=str)
+    min_accel = request.args.get('accel-min', type=str)
+    max_accel = request.args.get('accel-max', type=str)
+    min_l_100 = request.args.get('l-100-min', type=str)
+    max_l_100 = request.args.get('l-100-max', type=str)
+    min_power = request.args.get('power-min', type=str)
+    max_power = request.args.get('power-max', type=str)
 
-    print('min', initial_min_price)
+    print('min-price:', min_price)
+    print('max-price:', max_price)
+    print('min-speed:', min_speed)
+    print('max-speed:', max_speed)
+    print('min-accel:', min_accel)
+    print('max-accel:', max_accel)
+    print('min-l-100:', min_l_100)
+    print('max-l-100:', max_l_100)
+    print('min-power:', min_power)
+    print('max-power:', max_power)
 
     dict_params = {
-
+        'min-price': min_price,
+        'max-price': max_price,
+        'min-speed': min_speed,
+        'max-speed': max_speed,
+        'min-accel': min_accel,
+        'max-accel': max_accel,
+        'min-l-100': min_l_100,
+        'max-l-100': max_l_100,
+        'min-power': min_power,
+        'max-power': max_power
     }
 
     # hits = search_porsche_model(index_name='porsches', **dict_params)

@@ -17,9 +17,13 @@
 
 <!-- Contient le body associé à la page web -->
 {% block body %}
+    <!-- Contient la ligne de filtre -->
     <div class="row-filter">
-        <form id="priceRangeForme" action="{{ url_for('home') }}" method="GET">
-            <div class="wrapper-price">
+
+        <!-- Contient le filtre du Prix -->
+        <div class="wrapper">
+             <!-- Contient le form du Prix -->
+            <form id="priceRangeForme" action="{{ url_for('home') }}" method="GET">
                 <!-- Correspond à la catégorie -->
                 <header>
                     <h2>Prix TTC</h2>
@@ -29,171 +33,236 @@
                 <div class="price-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-min" name="price-min" id="price-min" value="65000">
+                        <input type="number" class="input-price-min" name="price-min" id="price-min" value="65000">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-max" name="price-max" id="price-max" value="309000">
+                        <input type="number" class="input-price-max" name="price-max" id="price-max" value="309000">
                     </div>
                 </div>
 
                 <!-- Correspond à la distance entre les deux extrémités -->
                 <div class="slider">
-                    <div class="progress">-</div>
+                    <div class="progress-price"></div>
                 </div>
 
                 <!-- Correspond au slider des valeurs -->
-                <div class="range-input">
-                    <input type="range" class="range-min" min="0" max="310000" name="price-min-range" value="65000" step="1000">
-                    <input type="range" class="range-max" min="0" max="310000" name="price-max-range" value="309000" step="1000">
+                <div class="range-price">
+                    <input type="range" class="range-price-min" min="0" max="310000" name="price-min-range" id="price-min-range" value="65000" step="1000">
+                    <input type="range" class="range-price-max" min="0" max="310000" name="price-max-range" id="price-max-range" value="309000" step="1000">
                 </div>
-            </div>
 
-            <input type="hidden" name="initial-price-min" value="{{ initialMinPrice }}">
-            <input type="hidden" name="initial-price-max" value="{{ initialMaxPrice }}">
-            <!-- Vitesse.... -->
-
-        </form>
-
-
+                <!-- Différents filtres à retenir -->
+                <input type="hidden" name="min_price" value="{{ min_price }}">
+                <input type="hidden" name="max_price" value="{{ max_price }}">
+                <input type="hidden" name="min_speed" value="{{ min_speed }}">
+                <input type="hidden" name="max_speed" value="{{ max_speed }}">
+                <input type="hidden" name="min_accel" value="{{ min_accel }}">
+                <input type="hidden" name="max_accel" value="{{ max_accel }}">
+                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+                <input type="hidden" name="min_power" value="{{ min_power }}">
+                <input type="hidden" name="max_power" value="{{ max_power }}">
+            </form>
+        </div>
 
         <!-- Correspond aux Vitesses -->
-        <div class="wrapper-speed">
-            <!-- Correspond à la catégorie -->
-            <header>
-                <h2>Vitesse Maximale</h2>
-            </header>
+        <div class="wrapper">
+            <!-- Contient le form de la Vitesse -->
+            <form id="speedRangeForme" action="{{ url_for('home') }}" method="GET">
+                <!-- Correspond à la catégorie -->
+                <header>
+                    <h2>Vitesse Maximale</h2>
+                </header>
 
-            <!-- Correspond aux deux valeurs minimales et maximales -->
-            <div class="speed-input">
-                <!-- Correspond à la valeur minimale -->
-                <div class="field-speed">
-                    <input type="number" class="input-speed-min" name="speed-min" value="0">
+                <!-- Correspond aux deux valeurs minimales et maximales -->
+                <div class="speed-input">
+                    <!-- Correspond à la valeur minimale -->
+                    <div class="field">
+                        <input type="number" class="input-speed-min" name="speed-min" id="speed-min" value="0">
+                    </div>
+
+                    <div class="separator">-</div>
+
+                    <!-- Correspond à la valeur maximale -->
+                    <div class="field">
+                        <input type="number" class="input-speed-max" name="speed-max" id="speed-max" value="350">
+                    </div>
                 </div>
 
-                <div class="separator">-</div>
-
-                <!-- Correspond à la valeur maximale -->
-                <div class="field-speed">
-                    <input type="number" class="input-speed-max" name="speed-max" value="350">
+                <!-- Correspond à la distance entre les deux extremums -->
+                <div class="slider">
+                    <div class="progress-speed"></div>
                 </div>
-            </div>
 
-            <!-- Correspond à la distance entre les deux extremums -->
-            <div class="slider-speed">
-                <div class="progress-speed"></div>
-            </div>
+                <!-- Correspond au slider des valeurs -->
+                <div class="range-speed">
+                    <input type="range" class="range-speed-min" min="0" max="350" id="speed-min-range" value="0" step="1">
+                    <input type="range" class="range-speed-max" min="0" max="350" id="speed-max-range" value="350" step="1">
+                </div>
 
-            <!-- Correspond au slider des valeurs -->
-            <div class="range-speed-input">
-                <input type="range" class="range-speed-min" min="0" max="350" value="0" step="1">
-                <input type="range" class="range-speed-max" min="0" max="350" value="350" step="1">
-            </div>
+                <!-- Différents filtres à retenir -->
+                <input type="hidden" name="min_price" value="{{ request.args.get('min_price', '') }}">
+                <input type="hidden" name="max_price" value="{{ max_price }}">
+                <input type="hidden" name="min_speed" value="{{ min_speed }}">
+                <input type="hidden" name="max_speed" value="{{ max_speed }}">
+                <input type="hidden" name="min_accel" value="{{ min_accel }}">
+                <input type="hidden" name="max_accel" value="{{ max_accel }}">
+                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+                <input type="hidden" name="min_power" value="{{ min_power }}">
+                <input type="hidden" name="max_power" value="{{ max_power }}">
+            </form>
         </div>
 
         <!-- Correspond aux L/100 -->
-        <div class="wrapper-l-100">
-            <!-- Correspond à la catégorie -->
-            <header>
-                <h2>Litres/100 km</h2>
-            </header>
+        <div class="wrapper">
+            <!-- Contient le form de la Vitesse -->
+            <form id="l100RangeForme" action="{{ url_for('home') }}" method="GET">
+                <!-- Correspond à la catégorie -->
+                <header>
+                    <h2>Litres/100 km</h2>
+                </header>
 
-            <!-- Correspond aux deux valeurs minimales et maximales -->
-            <div class="l-100-input">
-                <!-- Correspond à la valeur minimale -->
-                <div class="field-l-100">
-                    <input type="number" class="input-l-100-min" name="l-100-min" value="5">
+                <!-- Correspond aux deux valeurs minimales et maximales -->
+                <div class="l-100-input">
+                    <!-- Correspond à la valeur minimale -->
+                    <div class="field">
+                        <input type="number" class="input-l-100-min" name="l-100-min" id="l-100-min" value="5">
+                    </div>
+
+                    <div class="separator">-</div>
+
+                    <!-- Correspond à la valeur maximale -->
+                    <div class="field">
+                        <input type="number" class="input-l-100-max" name="l-100-max" id="l-100-max" value="15">
+                    </div>
                 </div>
 
-                <div class="separator">-</div>
-
-                <!-- Correspond à la valeur maximale -->
-                <div class="field-l-100">
-                    <input type="number" class="input-l-100-max" name="l-100-max" value="15">
+                <!-- Correspond à la distance entre les deux extremums -->
+                <div class="slider">
+                    <div class="progress-l-100"></div>
                 </div>
-            </div>
 
-            <!-- Correspond à la distance entre les deux extremums -->
-            <div class="slider-l-100">
-                <div class="progress-l-100"></div>
-            </div>
+                <!-- Correspond au slider des valeurs -->
+                <div class="range-l-100">
+                    <input type="range" class="range-l-100-min" min="0" max="20" id='l-100-min-range' value="5" step="1">
+                    <input type="range" class="range-l-100-max" min="0" max="20" id='l-100-max-range' value="15" step="1">
+                </div>
 
-            <!-- Correspond au slider des valeurs -->
-            <div class="range-l-100-input">
-                <input type="range" class="range-l-100-min" min="0" max="20" value="5" step="1">
-                <input type="range" class="range-l-100-max" min="0" max="20" value="15" step="1">
-            </div>
+                <!-- Différents filtres à retenir -->
+                <input type="hidden" name="min_price" value="{{ min_price }}">
+                <input type="hidden" name="max_price" value="{{ max_price }}">
+                <input type="hidden" name="min_speed" value="{{ min_speed }}">
+                <input type="hidden" name="max_speed" value="{{ max_speed }}">
+                <input type="hidden" name="min_accel" value="{{ min_accel }}">
+                <input type="hidden" name="max_accel" value="{{ max_accel }}">
+                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+                <input type="hidden" name="min_power" value="{{ min_power }}">
+                <input type="hidden" name="max_power" value="{{ max_power }}">
+            </form>
         </div>
 
         <!-- Correspond aux Puissances (ch) -->
-        <div class="wrapper-power">
-            <!-- Correspond à la catégorie -->
-            <header>
-                <h2>Puissance en CH</h2>
-            </header>
+        <div class="wrapper">
+            <!-- Contient le form de la Vitesse -->
+            <form id="powerRangeForme" action="{{ url_for('home') }}" method="GET">
+                <!-- Correspond à la catégorie -->
+                <header>
+                    <h2>Puissance en CH</h2>
+                </header>
 
-            <!-- Correspond aux deux valeurs minimales et maximales -->
-            <div class="power-input">
-                <!-- Correspond à la valeur minimale -->
-                <div class="field-power">
-                    <input type="number" class="input-power-min" name="power-min" value="0">
+                <!-- Correspond aux deux valeurs minimales et maximales -->
+                <div class="power-input">
+                    <!-- Correspond à la valeur minimale -->
+                    <div class="field">
+                        <input type="number" class="input-power-min" name="power-min" id="power-min" value="0">
+                    </div>
+
+                    <div class="separator">-</div>
+
+                    <!-- Correspond à la valeur maximale -->
+                    <div class="field">
+                        <input type="number" class="input-power-max" name="power-max" id="power-max" value="800">
+                    </div>
                 </div>
 
-                <div class="separator">-</div>
-
-                <!-- Correspond à la valeur maximale -->
-                <div class="field-power">
-                    <input type="number" class="input-power-max" name="power-max" value="800">
+                <!-- Correspond à la distance entre les deux extremums -->
+                <div class="slider">
+                    <div class="progress-power"></div>
                 </div>
-            </div>
 
-            <!-- Correspond à la distance entre les deux extremums -->
-            <div class="slider-power">
-                <div class="progress-power"></div>
-            </div>
+                <!-- Correspond au slider des valeurs -->
+                <div class="range-power">
+                    <input type="range" class="range-power-min" min="0" max="800" id="power-min-range" value="100" step="10">
+                    <input type="range" class="range-power-max" min="0" max="800" id="power-max-range" value="750" step="10">
+                </div>
 
-            <!-- Correspond au slider des valeurs -->
-            <div class="range-power-input">
-                <input type="range" class="range-power-min" min="0" max="800" value="100" step="10">
-                <input type="range" class="range-power-max" min="0" max="800" value="750" step="10">
-            </div>
+                <!-- Différents filtres à retenir -->
+                <input type="hidden" name="min_price" value="{{ min_price }}">
+                <input type="hidden" name="max_price" value="{{ max_price }}">
+                <input type="hidden" name="min_speed" value="{{ min_speed }}">
+                <input type="hidden" name="max_speed" value="{{ max_speed }}">
+                <input type="hidden" name="min_accel" value="{{ min_accel }}">
+                <input type="hidden" name="max_accel" value="{{ max_accel }}">
+                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+                <input type="hidden" name="min_power" value="{{ min_power }}">
+                <input type="hidden" name="max_power" value="{{ max_power }}">
+            </form>
         </div>
 
         <!-- Correspond aux Accélérations -->
-        <div class="wrapper-acceleration">
-            <!-- Correspond à la catégorie -->
-            <header>
-                <h2>0-100 km/h</h2>
-            </header>
+        <div class="wrapper">
+            <!-- Contient le form de la Vitesse -->
+            <form id="accelerationRangeForme" action="{{ url_for('home') }}" method="GET">
+                <!-- Correspond à la catégorie -->
+                <header>
+                    <h2>0-100 km/h</h2>
+                </header>
 
-            <!-- Correspond aux deux valeurs minimales et maximales -->
-            <div class="acceleration-input">
-                <!-- Correspond à la valeur minimale -->
-                <div class="field-acceleration">
-                    <input type="number" class="input-acceleration-min" name="acc-min" value="0">
+                <!-- Correspond aux deux valeurs minimales et maximales -->
+                <div class="acceleration-input">
+                    <!-- Correspond à la valeur minimale -->
+                    <div class="field">
+                        <input type="number" class="input-acceleration-min" name="accel-min" id="accel-min" value="0">
+                    </div>
+
+                    <div class="separator">-</div>
+
+                    <!-- Correspond à la valeur maximale -->
+                    <div class="field">
+                        <input type="number" class="input-acceleration-max" name="accel-max" id="accel-max" value="10">
+                    </div>
                 </div>
 
-                <div class="separator">-</div>
-
-                <!-- Correspond à la valeur maximale -->
-                <div class="field-acceleration">
-                    <input type="number" class="input-acceleration-max" name="acc-max" value="10">
+                <!-- Correspond à la distance entre les deux extremums -->
+                <div class="slider">
+                    <div class="progress-acceleration"></div>
                 </div>
-            </div>
 
-            <!-- Correspond à la distance entre les deux extremums -->
-            <div class="slider-acceleration">
-                <div class="progress-acceleration"></div>
-            </div>
+                <!-- Correspond au slider des valeurs -->
+                <div class="range-acceleration">
+                    <input type="range" class="range-acceleration-min" min="0" max="10" id="accel-min-range" value="1" step="1">
+                    <input type="range" class="range-acceleration-max" min="0" max="10" id="accel-max-range" value="9" step="1">
+                </div>
 
-            <!-- Correspond au slider des valeurs -->
-            <div class="range-acceleration-input">
-                <input type="range" class="range-acceleration-min" min="0" max="10" value="1" step="1">
-                <input type="range" class="range-acceleration-max" min="0" max="10" value="9" step="1">
-            </div>
+                <!-- Différents filtres à retenir -->
+                <input type="hidden" name="min_price" value="{{ min_price }}">
+                <input type="hidden" name="max_price" value="{{ max_price }}">
+                <input type="hidden" name="min_speed" value="{{ min_speed }}">
+                <input type="hidden" name="max_speed" value="{{ max_speed }}">
+                <input type="hidden" name="min_accel" value="{{ min_accel }}">
+                <input type="hidden" name="max_accel" value="{{ max_accel }}">
+                <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
+                <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
+                <input type="hidden" name="min_power" value="{{ min_power }}">
+                <input type="hidden" name="max_power" value="{{ max_power }}">
+            </form>
         </div>
 
         <!-- Correspond aux scripts pour les filtres -->
