@@ -17,8 +17,13 @@
 
 <!-- Contient le body associé à la page web -->
 {% block body %}
+    <form action="/" method="GET" id="filter-form">
+        <input type="number" class="input-oui" name="price-oui" value="65000">
+        <button type="submit">Submit</button>
+    </form>
+
+
     <div class="row-filter">
-        <!-- Correspond aux Prix -->
         <div class="wrapper-price">
             <!-- Correspond à la catégorie -->
             <header>
@@ -29,26 +34,26 @@
             <div class="price-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field">
-                    <input type="number" class="input-min" value="65000">
+                    <input type="number" class="input-min" name="price-min" value="65000">
                 </div>
 
                 <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field">
-                    <input type="number" class="input-max" value="309000">
+                    <input type="number" class="input-max" name="price-max" value="309000">
                 </div>
             </div>
 
-            <!-- Correspond à la distance entre les deux extremums -->
+            <!-- Correspond à la distance entre les deux extrémités -->
             <div class="slider">
                 <div class="progress">-</div>
             </div>
 
             <!-- Correspond au slider des valeurs -->
             <div class="range-input">
-                <input type="range" class="range-min" min="0" max="310000" value="65000" step="1000">
-                <input type="range" class="range-max" min="0" max="310000" value="309000" step="1000">
+                <input type="range" class="range-min" min="0" max="310000" name="price-min-range" value="65000" step="1000">
+                <input type="range" class="range-max" min="0" max="310000" name="price-max-range" value="309000" step="1000">
             </div>
         </div>
 
@@ -63,14 +68,14 @@
             <div class="speed-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field-speed">
-                    <input type="number" class="input-speed-min" value="0">
+                    <input type="number" class="input-speed-min" name="speed-min" value="0">
                 </div>
 
                 <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-speed">
-                    <input type="number" class="input-speed-max" value="350">
+                    <input type="number" class="input-speed-max" name="speed-max" value="350">
                 </div>
             </div>
 
@@ -97,14 +102,14 @@
             <div class="l-100-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field-l-100">
-                    <input type="number" class="input-l-100-min" value="5">
+                    <input type="number" class="input-l-100-min" name="l-100-min" value="5">
                 </div>
 
                 <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-l-100">
-                    <input type="number" class="input-l-100-max" value="15">
+                    <input type="number" class="input-l-100-max" name="l-100-max" value="15">
                 </div>
             </div>
 
@@ -131,14 +136,14 @@
             <div class="power-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field-power">
-                    <input type="number" class="input-power-min" value="0">
+                    <input type="number" class="input-power-min" name="power-min" value="0">
                 </div>
 
                 <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-power">
-                    <input type="number" class="input-power-max" value="800">
+                    <input type="number" class="input-power-max" name="power-max" value="800">
                 </div>
             </div>
 
@@ -165,14 +170,14 @@
             <div class="acceleration-input">
                 <!-- Correspond à la valeur minimale -->
                 <div class="field-acceleration">
-                    <input type="number" class="input-acceleration-min" value="0">
+                    <input type="number" class="input-acceleration-min" name="acc-min" value="0">
                 </div>
 
                 <div class="separator">-</div>
 
                 <!-- Correspond à la valeur maximale -->
                 <div class="field-acceleration">
-                    <input type="number" class="input-acceleration-max" value="10">
+                    <input type="number" class="input-acceleration-max" name="acc-max" value="10">
                 </div>
             </div>
 
@@ -192,7 +197,9 @@
         <script src="../static/js/index.js"></script>
     </div>
 
-
+    <div class="button-submit">
+        <button id="submit-button">Submit</button>
+    </div>
 
     <!-- Contient la gallerie des modèles de Porsche disponibles -->
     <div class="porsche-models-gallery">

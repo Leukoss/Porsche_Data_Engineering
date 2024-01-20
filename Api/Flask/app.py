@@ -1,11 +1,11 @@
 """
     Module permettant le lancement de l'application Flask
 """
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 
 # On importe toutes les fonctions de recherches notamment pour les filtres
-# from ..ElasticSearch.elasticsearch_functions import *
+from ..ElasticSearch_api.elasticsearch_functions import *
 
 
 def log_mongodb(flask_app):
@@ -39,33 +39,62 @@ def get_mongodb_data(flaskapp) -> list:
     return list(collection.find({}, field_to_exclude))
 
 
-# def create_es(es_client, collection):
-#     """
-#     On instancie notre elasticsearch en indexant notre collection
-#     :param es_client: client elasticsearch
-#     :param collection: collection de documents
-#     """
-#     # Dans un premier temps, on réinitialise le précédent elasticsearch
-#     clear_es_client(es_client)
-#
-#     # Dans un second temps, on indexe nos données
-#     create_index(es_client, )
+def create_es(es_client, collection):
+    """
+    On instancie notre elasticsearch en indexant notre collection
+    :param es_client: client elasticsearch
+    :param collection: collection de documents
+    """
+    # Dans un premier temps, on réinitialise le précédent elasticsearch
+    clear_es_client(es_client)
+
+    # On récupère les documents
+    documents = get_mongodb_data(collection)
+
+    # Dans un second temps, on indexe nos données
+    indexation(es_client, documents)
 
 
 # On instancie notre application Flask
 app = Flask(__name__)
-
 # On récupère la collection
 collection = log_mongodb(app)
+# On indexe notre collection
+create_es(es_client=es, collection=collection)
 
 
-@app.route('/')
+@app.route('/', methods=['GET'])
 def home():
     """
     Permet de définir la page d'accueil
     :return: render_template retourne la page html associée se trouvant dans le
     dossier 'templates'
     """
+    # Récupération des paramètres pour le filtrage
+    min_price = request.args.get('price-min')
+    max_price = request.args.get('price-max')
+    min_speed = request.args.get('speed-min')
+    max_speed = request.args.get('speed-max')
+    min_l_100 = request.args.get('l-100-min')
+    max_l_100 = request.args.get('l-100-max')
+    min_power = request.args.get('power-min')
+    max_power = request.args.get('power-max')
+    min_acc = request.args.get('acc-min')
+    max_acc = request.args.get('acc-max')
+
+    print('min', min_price)
+
+    dict_params = {
+        'oui': 'oui'
+    }
+
+    hits = search_porsche_model(index_name='porsches', **dict_params)
+
+    render_params = {
+        'porsche_models_list': 'oui'
+
+    }
+
     # Récupération de tous les éléments
     porsche_models_informations = get_mongodb_data(collection)
 
@@ -83,16 +112,6 @@ def home():
         porsche_models_list.append(model_data)
 
     return render_template('index.html', porsche_models=porsche_models_list)
-
-
-@app.route('/search_model')
-def search():
-    """
-    Permet de définir la page de recherche
-    :return: render_template retourne la page html associée se trouvant dans le
-    dossier 'templates'
-    """
-    return render_template('search_model.html')
 
 
 @app.route('/visualisation')

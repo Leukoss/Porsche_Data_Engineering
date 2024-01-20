@@ -41,8 +41,8 @@ def clear_es_client(es_client=es, index="porsches") -> None:
 
 def indexation(es_client, documents) -> None:
     """
-    Permet de créer un index ElasticSearch
-    :param es_client: client ElasticSearch
+    Permet de créer un index ElasticSearch_api
+    :param es_client: client ElasticSearch_api
     :param documents: à indexer
     """
     index_name = 'porsches'
