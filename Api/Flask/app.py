@@ -1,6 +1,7 @@
 """
-    Module permettant le lancement de l'application Flask
+    Module for launching the Flask application
 """
+import flask_pymongo
 import plotly.graph_objs as go
 import plotly
 import json
@@ -10,19 +11,19 @@ from flask import Flask, render_template, request, redirect
 from flask_pymongo import PyMongo
 
 
-def log_mongodb(flask_app):
+def connect_mongodb(flask_app) -> flask_pymongo.wrappers.Collection:
     """
-    Permet de se connecter à la base de données issue du scraping
-    :param flask_app: application flask
+    Connects to the database from web scraping
+    :param flask_app: Flask application
     :return: collection
     """
     try:
-        # Configuration du Flask_Pymongo pour se connecter au localhost27017 et
-        # à la base de données 'porsche'
+        # Configure Flask_Pymongo to connect to localhost:27017 and the
+        # 'porsche' database
         flask_app.config['MONGO_URI'] = 'mongodb://localhost:27017/porsche'
         mongo = PyMongo(flask_app)
 
-        # On récupère la collection 'porsche_models'
+        # On Retrieve the 'porsche_models' collection
         return mongo.db.porsche_models
     except Exception as error:
         print(f"Exception while connecting to the mongodb... Error : {error}")
@@ -30,47 +31,46 @@ def log_mongodb(flask_app):
 
 def get_mongodb_data(flaskapp) -> list:
     """
-    Permet de récupérer le jeu de données en excluant '_id'
-    :param flaskapp: application
-    :return: liste de données
+    Retrieves the dataset excluding '_id'
+    :param flaskapp: Flask application
+    :return: list of data
     """
-    field_to_exclude = {'_id': 0}
-
-    # Sous forme de liste, retourne tous les fields de tous les documents de la
-    # collection excepté le 'field_to_exclude'
-    return list(collection.find({}, field_to_exclude))
+    # Returns all fields of all documents in the collection as a list,
+    # excluding the 'field_to_exclude'
+    return list(collection.find({}, {'_id': 0}))
 
 
 def create_es(es_client, porsche_collection):
     """
-    On instancie notre elasticsearch en indexant notre collection
-    :param es_client: client elasticsearch
-    :param porsche_collection: parlant
+    Instantiates our Elasticsearch by indexing our collection
+    :param es_client: Elasticsearch client
+    :param porsche_collection: Collection of Porsche data
     """
-    # Dans un premier temps, on réinitialise le précédent elasticsearch
+    # First, we reset the previous Elasticsearch
     clear_es_client(es_client)
 
-    # On récupère les documents
+    # We retrieve the documents
     documents = get_mongodb_data(porsche_collection)
 
-    # Dans un second temps, on indexe nos données
+    # Next, we index our data with the elasticsearch client
     indexation(es_client, documents)
 
 
-# On instancie notre application Flask
-# On récupère la collection
-# On indexe notre collection
+# Instantiate our Flask application
 app = Flask(__name__)
-collection = log_mongodb(app)
+
+# Retrieve the collection
+collection = connect_mongodb(app)
+
+# Index our collection
 create_es(es_client=es, porsche_collection=collection)
 
 
 @app.route('/', methods=['GET', 'POST'])
 def home():
     """
-    Permet de définir la page d'accueil
-    :return: render_template retourne la page html associée se trouvant dans le
-    dossier 'templates'
+    Defines the home page
+    :return: render_template returns the associated HTML page located in the 'templates' folder
     """
     porsche_models_list = []
 
@@ -95,31 +95,26 @@ def home():
 @app.route('/visualisation')
 def visualisation():
     """
-    Permet de définir la page de visualisation (graphique)
-    :return: render_template retourne la page html associée se trouvant dans le
-    dossier 'templates'
+    Defines the visualization page (graphs)
+    :return: render_template returns the associated HTML page located in the
+    'templates' folder
     """
-    # Récupération de tous les éléments
+    # Retrieving all elements
     porsche_models_informations = get_mongodb_data(collection)
 
-    # Initialise les listes pour stocker les informations
+    # Initializing lists to store information
     data = {
-        "acceleration": [],
-        "top_speed": [],
-        "porsche_price": [],
-        "porsche_name": [],
-        "l_100_min": [],
-        "l_100_max": [],
-        "power_ch": [],
+        "acceleration": [], "top_speed": [], "porsche_price": [],
+        "porsche_name": [], "l_100_min": [], "l_100_max": [], "power_ch": [],
         "power_kw": []
     }
 
-    # On constitue les listes d'informations sur les modèles de Porsche
+    # Building lists of information about Porsche models
     for info in porsche_models_informations:
         for key in data.keys():
             data[key].append(info.get(key))
 
-    # Création des graphiques
+    # Creating graphs
     graphs = {}
 
     graph_info = [
@@ -149,7 +144,7 @@ def visualisation():
                 x=data[x_data],
                 y=data[y_data],
                 mode='markers',
-                marker=dict(color='#f9f9f9')
+                marker=dict(color='#1A1A1A')
             )
         ])
         fig.update_layout(
@@ -157,10 +152,11 @@ def visualisation():
             xaxis_title=x_title,
             yaxis_title=y_title,
             margin=dict(l=40, r=40, t=40, b=40),
-            plot_bgcolor='#1A1A1A',
-            legend=dict(font_color='#1A1A1A')
+            plot_bgcolor='#c7c7c7',
+            legend=dict(font=dict(color='#1A1A1A'))
         )
-        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig,
+                                                        cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('visualisation.html', graphs=graphs)
 

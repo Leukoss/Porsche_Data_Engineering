@@ -1,158 +1,76 @@
-<!-- index.html : contient les images principales pour chaque modèle -->
+<!-- index.html : contains the database and allows filtering -->
 
-<!-- Importation de la structure générale du base.html -->
+<!-- Import the general structure from base.html -->
 {% extends "base.html" %}
 
-<!-- Ajout d'une stylesheet propre à cette page -->
+<!-- Link a new stylesheet only for this webpage -->
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 {% endblock %}
 
-<!-- Permet de pouvoir ajuster le titre dans chaque page -->
-<!-- Contient le titre associé à la page web -->
+<!-- Title page -->
 {% block title %}
     Accueil
 {% endblock %}
 
-
-<!-- Contient le body associé à la page web -->
+<!-- Body page -->
 {% block body %}
-    <!-- Contient la ligne de filtre -->
+    <!-- Contains the filters -->
     <div class="row-filter">
+        <!-- Allow to submit the values in flask -->
         <form  id="allForme" action="{{ url_for('home') }}" method='GET'>
-            <!-- Contient le filtre du Prix -->
+            <!-- Contains the required fields to iterate the structure -->
+            {% set categories = [
+                {'name': 'Prix TTC', 'prefix': 'price', 'default_min': '0', 'default_max': '310000', 'min': '0', 'max': '310000'},
+                {'name': 'Vitesse Maximale', 'prefix': 'speed', 'default_min': '0', 'default_max': '350', 'min': '0', 'max': '350'},
+                {'name': 'Litres/100 km', 'prefix': 'l-100', 'default_min': '0', 'default_max': '20', 'min': '0', 'max': '20'},
+                {'name': 'Puissance en CH', 'prefix': 'power', 'default_min': '0', 'default_max': '800', 'min': '0', 'max': '800'},
+                {'name': '0-100 km/h', 'prefix': 'accel', 'default_min': '0', 'default_max': '10', 'min': '0', 'max': '10'},
+            ] %}
+
+            {% for category in categories %}
             <div class="wrapper">
-                <!-- Correspond à la catégorie -->
+                <!-- Title of the card -->
                 <header>
-                    <h2>Prix TTC</h2>
+                    <h2>{{ category.name }}</h2>
                 </header>
 
-                <!-- Correspond aux deux valeurs minimales et maximales -->
-                <div class="price-input">
-                    <!-- Correspond à la valeur minimale -->
+                <!-- Contains the buttons -->
+                <div class="{{ category.prefix }}-input">
+                    <!-- Contains the min button -->
                     <div class="field">
-                        <input type="text" name="price-min" id="price-min" min="0" max="310000" value="{{ request.args.get('price-min', '0') }}">
+                        <input type="text" name="{{ category.prefix }}-min" id="{{ category.prefix }}-min" min="{{ category.min }}" max="{{ category.max }}" value="{{ request.args.get(category.prefix + '-min', category.default_min) }}">
                     </div>
 
+                    <!-- Contains the separator -->
                     <div class="separator">-</div>
 
-                    <!-- Correspond à la valeur maximale -->
+                    <!-- Contains the max button -->
                     <div class="field">
-                        <input type="text" name="price-max" id="price-max" min="0" max="310000" value="{{ request.args.get('price-max', '310000') }}">
+                        <input type="text" name="{{ category.prefix }}-max" id="{{ category.prefix }}-max" min="{{ category.min }}" max="{{ category.max }}" value="{{ request.args.get(category.prefix + '-max', category.default_max) }}">
                     </div>
                 </div>
             </div>
-
-            <!-- Correspond aux Vitesses -->
-            <div class="wrapper">
-                <!-- Correspond à la catégorie -->
-                <header>
-                    <h2>Vitesse Maximale</h2>
-                </header>
-
-                <!-- Correspond aux deux valeurs minimales et maximales -->
-                <div class="speed-input">
-                    <!-- Correspond à la valeur minimale -->
-                    <div class="field">
-                        <input type="text" name="speed-min" id="speed-min" min="0" max="310000" value="{{ request.args.get('speed-min', '0') }}">
-                    </div>
-
-                    <div class="separator">-</div>
-
-                    <!-- Correspond à la valeur maximale -->
-                    <div class="field">
-                        <input type="text" name="speed-max" id="speed-max" min="0" max="310000" value="{{ request.args.get('speed-max', '350') }}">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Correspond aux L/100 -->
-            <div class="wrapper">
-                <!-- Correspond à la catégorie -->
-                <header>
-                    <h2>Litres/100 km</h2>
-                </header>
-
-                <!-- Correspond aux deux valeurs minimales et maximales -->
-                <div class="l-100-input">
-                    <!-- Correspond à la valeur minimale -->
-                    <div class="field">
-                        <input type="text" name="l-100-min" id="l-100-min" min="0" max="310000" value="{{ request.args.get('l-100-min', '0') }}">
-                    </div>
-
-                    <div class="separator">-</div>
-
-                    <!-- Correspond à la valeur maximale -->
-                    <div class="field">
-                        <input type="text" name="l-100-max" id="l-100-max" min="0" max="310000" value="{{ request.args.get('l-100-max', '20') }}">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Correspond aux Puissances (ch) -->
-            <div class="wrapper">
-                <!-- Correspond à la catégorie -->
-                <header>
-                    <h2>Puissance en CH</h2>
-                </header>
-
-                <!-- Correspond aux deux valeurs minimales et maximales -->
-                <div class="power-input">
-                    <!-- Correspond à la valeur minimale -->
-                    <div class="field">
-                        <input type="text" name="power-min" id="power-min" min="0" max="310000" value="{{ request.args.get('power-min', '0') }}">
-                    </div>
-
-                    <div class="separator">-</div>
-
-                    <!-- Correspond à la valeur maximale -->
-                    <div class="field">
-                        <input type="text" name="power-max" id="power-max" min="0" max="310000" value="{{ request.args.get('power-max', '800') }}">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Correspond aux Accélérations -->
-            <div class="wrapper">
-                <!-- Correspond à la catégorie -->
-                <header>
-                    <h2>0-100 km/h</h2>
-                </header>
-
-                <!-- Correspond aux deux valeurs minimales et maximales -->
-                <div class="acceleration-input">
-                    <!-- Correspond à la valeur minimale -->
-                    <div class="field">
-                        <input type="text" name="accel-min" id="accel-min" min="0" max="310000" value="{{ request.args.get('accel-min', '0') }}">
-                    </div>
-
-                    <div class="separator">-</div>
-
-                    <!-- Correspond à la valeur maximale -->
-                    <div class="field">
-                        <input type="text" name="accel-max" id="accel-max" min="0" max="310000" value="{{ request.args.get('accel-max', '10') }}">
-                    </div>
-                </div>
-            </div>
+            {% endfor %}
         </form>
     </div>
 
-    <!-- Contient la gallerie des modèles de Porsche disponibles -->
+    <!--Contains the gallery of each filtered models -->
     <div class="porsche-models-gallery">
-        <!-- Chaque modèle affiche l'image, le prix et le nom -->
+        <!-- Display the name, power, ... for each filtered models -->
         {% for model in porsche_models %}
             <div class="porsche-model-card">
                 <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
                 <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
-                <p class="porsche-model-char">{{ model.power_ch }} ch</p>
-                <p class="porsche-model-char">{{ model.top_speed }} km/h</p>
-                <p class="porsche-model-char">{{ model.porsche_price }} €</p>
                 <p class="porsche-model-char">0 - 100 km/h en {{ model.acceleration }} secondes</p>
                 <p class="porsche-model-char">{{ model.l_100_min }} - {{ model.l_100_max }} L/100 km</p>
+                <p class="porsche-model-char">{{ model.top_speed }} km/h</p>
+                <p class="porsche-model-char">{{ model.porsche_price }} €</p>
+                <p class="porsche-model-char">{{ model.power_ch }} ch</p>
             </div>
         {% endfor %}
     </div>
 
-    <!-- Correspond aux scripts pour les filtres -->
+    <!-- Filters' script -->
     <script src="../static/js/index.js"></script>
 {% endblock %}

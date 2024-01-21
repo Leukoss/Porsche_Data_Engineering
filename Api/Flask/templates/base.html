@@ -1,44 +1,44 @@
-<!-- base.html : permet d'être utilisé pour la structure générale des pages -->
+<!-- base.html: Used for the general structure of pages -->
 
 <!DOCTYPE html>
 <html lang="fr">
 
-<!-- Contient le header (en-tête) -->
+<!-- Contains the header -->
 <head>
-    <!-- Métadonnées (informations sur la page) -->
-    <!-- keyword -> mots clefs, viewport -> optimise la mise en page mobile -->
+    <!-- Metadata (page information) -->
+    <!-- Keywords -> keywords, viewport -> optimize mobile layout -->
     <meta name="keywords" content="Scrapy, HTML, JS, CSS, Flask, Mongo, Python">
-    <meta name="viewport" content="width=device-widht, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Lucas SALI--ORLIANGE">
     <meta charset="UTF-8">
-    <!-- Permet de pouvoir ajuster le titre dans chaque page -->
+    <!-- Allows adjusting the title on each page -->
     <title>{% block title %}{% endblock %}</title>
-    <!-- Permet de lier cette page et son contenu à une feuille de style css -->
+    <!-- Links this page and its content to a CSS stylesheet -->
     <link rel="stylesheet" href="../static/css/base.css">
-    <!-- Permet de lier cette page et une icône -->
+    <!-- Links this page to an icon -->
     <link rel="icon" href="../static/img/porsche.ico">
-    <!-- permet de rajouter des champs en fonciton de la page -->
+    <!-- Allows adding fields based on the page -->
     {% block head %}{% endblock %}
 </head>
 
 <body>
-    <!-- Barre de navigation -->
+    <!-- Navigation bar -->
     <nav class="navbar">
-        <!-- Div contenant les différents accès aux autres pages -->
+        <!-- Div containing links to other pages -->
         <a href="{{ url_for('home') }}">Accueil</a>
         <a href="{{ url_for('visualisation') }}">Visualisation</a>
     </nav>
 
-    <!-- Contient le corps de la page web -->
+    <!-- Contains the body of the web page -->
     <div class="content">
         {% block body %}{% endblock %}
     </div>
 
-    <!-- Contient le footer de la page web -->
+    <!-- Contains the footer of the web page -->
     <footer>
         <div class="footer">
-            <!-- Logo Université Gustave Eiffel -->
-            <img src="../static/img/logo_univ.png" class="logo" alt="Logo Université Gustave Eiffel">
+            <!-- University Gustave Eiffel Logo -->
+            <img src="../static/img/logo_univ.png" class="logo" alt="University Gustave Eiffel Logo">
 
             <!-- Copyright -->
             <div class="copyright">
@@ -47,16 +47,16 @@
 
             <!-- Credits -->
             <div class="credits">
-                SALI--ORLIANGE Lucas, encadré par Jérémy SURGET & William CARDOSO
+                Lucas SALI--ORLIANGE, encadrés par Jérémy SURGET & William CARDOSO
             </div>
 
             <!-- Unit -->
             <div class="unit">
-                DSIA-4201C : Data Engineering
+                DSIA-4201C: Data Engineering
             </div>
 
-            <!-- Logo ESIEE Paris -->
-            <img src="../static/img/logo_esiee.png" class="logo" alt="Logo ESIEE Paris">
+            <!-- ESIEE Paris Logo -->
+            <img src="../static/img/logo_esiee.png" class="logo" alt="ESIEE Paris Logo">
         </div>
     </footer>
 </body>

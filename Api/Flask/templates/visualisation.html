@@ -1,22 +1,22 @@
-<!-- visualisation.html : affiche les informations détaillées du modèle choisi -->
+<!-- visualisation.html: Displays detailed information for the selected model -->
 
-<!-- Importation de la structure générale du base.html -->
+<!-- Import the general structure from base.html -->
 {% extends "base.html" %}
 
-<!-- Ajout d'une stylesheet propre à cette page -->
+<!-- Add a stylesheet specific to this page and the plotly scripts -->
 {% block head %}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/visualisation.css') }}">
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 {% endblock %}
 
-<!-- Permet de pouvoir ajuster le titre dans chaque page -->
+<!-- Set the title for each page -->
 {% block title %}
     Visualisation
 {% endblock %}
 
-<!-- Contient le body associé à la page web -->
+<!-- Contains the body associated with the web page -->
 {% block body %}
-    <!-- Contient les graphiques et le texte pour Prix/Accélération -->
+    <!-- Contains graphs and text for Price/Acceleration -->
     <div class="graph" id="graph_acceleration_porsche_price"></div>
     <div class="analyse-graph" id="analyse-graph_acceleration_porsche_price">
         <p>
@@ -26,7 +26,7 @@
         </p>
     </div>
 
-    <!-- Contient les graphiques et le texte pour Prix/Vitesse -->
+    <!-- Contains graphs and text for Price/Speed -->
     <div class="graph" id="graph_top_speed_porsche_price"></div>
     <div class="analyse-graph" id="analyse-graph_top_speed_porsche_price">
         <p>
@@ -38,7 +38,7 @@
         </p>
     </div>
 
-    <!-- Contient les graphiques et le texte pour Prix/L100 -->
+    <!-- Contains graphs and text for Price/L-100 -->
     <div class="graph" id="graph_l_100_max_porsche_price"></div>
     <div class="analyse-graph" id="analyse-graph_acceleration_l_100_max">
         <p>
@@ -58,6 +58,7 @@
         </p>
     </div>
 
+    <!-- Contains graphs and text for Price/Power -->
     <div class="graph" id="graph_power_ch_porsche_price"></div>
     <div class="analyse-graph" id="analyse-graph_power_ch_porsche_price">
         <p>
@@ -70,6 +71,7 @@
         </p>
     </div>
 
+    <!-- Contains graphs and text for Power/Speed -->
     <div class="graph" id="graph_top_speed_power_ch"></div>
     <div class="analyse-graph" id="analyse-graph_top_speed_power_ch">
         <p>
@@ -81,6 +83,7 @@
         </p>
     </div>
 
+    <!-- Contains graphs and text for Power/Acceleration -->
     <div class="graph" id="graph_acceleration_power_ch"></div>
     <div class="analyse-graph" id="analyse-graph_acceleration_power_ch">
         <p>
@@ -92,6 +95,7 @@
         </p>
     </div>
 
+    <!-- Contains graphs and text for Power/L-100 -->
     <div class="graph" id="graph_l_100_max_power_ch"></div>
     <div class="analyse-graph" id="analyse-graph_l_100_max_power_ch">
         <p>
@@ -104,6 +108,7 @@
         </p>
     </div>
 
+    <!-- Contains graphs and text for Speed/Acceleration -->
     <div class="graph" id="graph_acceleration_top_speed"></div>
     <div class="analyse-graph" id="analyse-graph_acceleration_top_speed">
         <p>
@@ -115,10 +120,13 @@
         </p>
     </div>
 
+    <!-- For each graph_id and data, plots a cloud points -->
     {% for graph_id, graph_data in graphs.items() %}
-        <!-- Contient les scripts pour générer les graphiques -->
+        <!-- Scripts to generate the plot with plotly -->
         <script>
+            <!-- Get the variable according to its id containing the data -->
             var graph_{{ graph_id }} = {{ graph_data | safe }};
+            <!-- Dispplay the cloud points -->
             Plotly.newPlot('{{ graph_id }}', graph_{{ graph_id }}.data, graph_{{ graph_id }}.layout);
         </script>
     {% endfor %}

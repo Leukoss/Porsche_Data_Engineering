@@ -26,7 +26,7 @@ header h2 {
 }
 
 /* Style for min/max input values */
-.price-input, .speed-input, .l-100-input, .power-input, .acceleration-input {
+.price-input, .speed-input, .l-100-input, .power-input, .accel-input {
     width: 100%;
     display: flex;
     margin: 30px 0 35px;
@@ -51,6 +51,7 @@ header h2 {
     text-align: center;
     border: 1px solid #dfd6d6;
     -moz-appearance: textfield;
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 /* Style for the Min/Max separator */
@@ -60,70 +61,6 @@ header h2 {
     font-size: 19px;
     align-items: center;
     justify-content: center;
-}
-
-/* Style for input type number buttons */
-input[type="number"]::-webkit-outer-spin-button,
-input[type="number"]::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-}
-
-/* Style for the sliders */
-.slider {
-    height: 5px;
-    position: relative;
-    background: #ddd;
-    border-radius: 5px;
-}
-
-/* Style for the progress bars */
-.progress-price, .progress-speed, .progress-l-100, .progress-power, .progress-acceleration {
-    height: 100%;
-    left: 25%;
-    right: 25%;
-    position: absolute;
-    border-radius: 5px;
-    background: #b81717;
-}
-
-/* Style for the range input thumbs */
-input[type="range"]::-webkit-slider-thumb {
-    height: 17px;
-    width: 17px;
-    border-radius: 50%;
-    background: #b81717;
-    pointer-events: auto;
-    -webkit-appearance: none;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Style for the range filters */
-.range-price, .range-speed, .range-l-100, .range-acceleration, .range-power {
-    position: relative;
-}
-
-/* Style for the range input thumbs (Firefox) */
-input[type="range"]::-moz-range-thumb {
-    height: 17px;
-    width: 17px;
-    border: none;
-    border-radius: 50%;
-    background: #a43939;
-    pointer-events: auto;
-    -moz-appearance: none;
-    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
-}
-
-/* Style for the range input tracks */
-.range-price input, .range-speed input, .range-l-100 input, .range-acceleration input, .range-power input {
-    position: absolute;
-    width: 100%;
-    height: 5px;
-    top: -5px;
-    background: none;
-    pointer-events: none;
-    -webkit-appearance: none;
-    -moz-appearance: none;
 }
 
 /* GALLERY STYLES */
@@ -163,7 +100,7 @@ input[type="range"]::-moz-range-thumb {
 }
 
 /* Style for the model price */
-.porsche-model-price {
+.porsche-model-char {
     color: #777;
     font-size: 0.9em;
 }
