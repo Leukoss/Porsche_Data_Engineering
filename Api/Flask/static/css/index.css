@@ -1,6 +1,6 @@
 /* FILTERING STYLES */
 
-/* Style pour la ligne de filtres */
+/* Style for the filter row */
 #allForme {
     padding: 20px;
     flex-grow: 1;
@@ -10,124 +10,125 @@
     max-width: 100%;
 }
 
-/* Style pour toutes les cartes de filtre */
+/* Style for all filter cards */
 .wrapper {
-  width: calc(18% - 20px);
-  background: #fff;
-  border-radius: 10px;
-  padding: 20px 25px 40px;
-  box-shadow: 0 12px 35px rgba(0,0,0,0.1);
+    width: calc(18% - 20px);
+    background: #fff;
+    border-radius: 10px;
+    padding: 20px 25px 40px;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
 }
 
-/* Style pour tous les titres de filtre */
-header h2{
-  font-size: 24px;
-  font-weight: 600;
+/* Style for all filter titles */
+header h2 {
+    font-size: 24px;
+    font-weight: 600;
 }
 
-/* Style pour les valeurs min/max */
+/* Style for min/max input values */
 .price-input, .speed-input, .l-100-input, .power-input, .acceleration-input {
-  width: 100%;
-  display: flex;
-  margin: 30px 0 35px;
+    width: 100%;
+    display: flex;
+    margin: 30px 0 35px;
 }
 
-/* Style pour les boîtes contenant les valeurs min/max */
+/* Style for the boxes containing min/max values */
 .field {
-  display: flex;
-  width: 100%;
-  height: 45px;
-  align-items: center;
+    display: flex;
+    width: 100%;
+    height: 45px;
+    align-items: center;
 }
 
-/* Style pour les boîtes contenant les valeurs min/max */
+/* Style for the input boxes inside the min/max boxes */
 .field input {
-  width: 100%;
-  height: 100%;
-  outline: none;
-  font-size: 19px;
-  margin-left: 12px;
-  border-radius: 5px;
-  text-align: center;
-  border: 1px solid #dfd6d6;
-  -moz-appearance: textfield;
+    width: 100%;
+    height: 100%;
+    outline: none;
+    font-size: 19px;
+    margin-left: 12px;
+    border-radius: 5px;
+    text-align: center;
+    border: 1px solid #dfd6d6;
+    -moz-appearance: textfield;
 }
 
-/* Style associé au séprateur Min/Max */
-.separator{
-  width: 130px;
-  display: flex;
-  font-size: 19px;
-  align-items: center;
-  justify-content: center;
+/* Style for the Min/Max separator */
+.separator {
+    width: 130px;
+    display: flex;
+    font-size: 19px;
+    align-items: center;
+    justify-content: center;
 }
 
-/* Style associé aux bouttons min/max */
+/* Style for input type number buttons */
 input[type="number"]::-webkit-outer-spin-button,
 input[type="number"]::-webkit-inner-spin-button {
-  -webkit-appearance: none;
+    -webkit-appearance: none;
 }
 
-/* Permet de mettre le style sur la barre */
+/* Style for the sliders */
 .slider {
-  height: 5px;
-  position: relative;
-  background: #ddd;
-  border-radius: 5px;
+    height: 5px;
+    position: relative;
+    background: #ddd;
+    border-radius: 5px;
 }
 
-/* Permet de mettre le style sur la barre bis */
+/* Style for the progress bars */
 .progress-price, .progress-speed, .progress-l-100, .progress-power, .progress-acceleration {
-  height: 100%;
-  left: 25%;
-  right: 25%;
-  position: absolute;
-  border-radius: 5px;
-  background: #b81717;
+    height: 100%;
+    left: 25%;
+    right: 25%;
+    position: absolute;
+    border-radius: 5px;
+    background: #b81717;
 }
 
-/* Permet de mettre le style sur la barre bis */
+/* Style for the range input thumbs */
 input[type="range"]::-webkit-slider-thumb {
-  height: 17px;
-  width: 17px;
-  border-radius: 50%;
-  background: #b81717;
-  pointer-events: auto;
-  -webkit-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    height: 17px;
+    width: 17px;
+    border-radius: 50%;
+    background: #b81717;
+    pointer-events: auto;
+    -webkit-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Style pour les curseurs de filtre */
+/* Style for the range filters */
 .range-price, .range-speed, .range-l-100, .range-acceleration, .range-power {
-  position: relative;
+    position: relative;
 }
 
-/* Style pour les barres de filtre */
+/* Style for the range input thumbs (Firefox) */
 input[type="range"]::-moz-range-thumb {
-  height: 17px;
-  width: 17px;
-  border: none;
-  border-radius: 50%;
-  background: #a43939;
-  pointer-events: auto;
-  -moz-appearance: none;
-  box-shadow: 0 0 6px rgba(0,0,0,0.05);
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    background: #a43939;
+    pointer-events: auto;
+    -moz-appearance: none;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.05);
 }
 
-/* Style pour toutes les cartes de filtre */
+/* Style for the range input tracks */
 .range-price input, .range-speed input, .range-l-100 input, .range-acceleration input, .range-power input {
-  position: absolute;
-  width: 100%;
-  height: 5px;
-  top: -5px;
-  background: none;
-  pointer-events: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: -5px;
+    background: none;
+    pointer-events: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
 }
 
 /* GALLERY STYLES */
 
+/* Style for the Porsche models gallery container */
 .porsche-models-gallery {
     padding: 20px;
     flex-grow: 1;
@@ -137,7 +138,7 @@ input[type="range"]::-moz-range-thumb {
     max-width: 100%;
 }
 
-/* Style pour chaque carte contenant une porsche */
+/* Style for each card containing a Porsche model */
 .porsche-model-card {
     width: calc(33.33% - 20px);
     text-align: center;
@@ -148,20 +149,20 @@ input[type="range"]::-moz-range-thumb {
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Style de l'image dans sa box */
+/* Style for the image within the model card */
 .porsche-model-image {
     width: 100%;
     height: auto;
 }
 
-/* Style du nom */
+/* Style for the model name */
 .porsche-model-name {
     color: #333;
     margin: 10px 0;
     font-size: 25px;
 }
 
-/* Style du prix */
+/* Style for the model price */
 .porsche-model-price {
     color: #777;
     font-size: 0.9em;
