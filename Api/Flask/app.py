@@ -6,7 +6,7 @@ import plotly
 import json
 
 from Api.ElasticSearch_api.elasticsearch_functions import *
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from flask_pymongo import PyMongo
 
 
@@ -74,38 +74,23 @@ def home():
     """
     porsche_models_list = []
 
-    if request.method == 'POST':
-        # Get filter parameters from the form
-        filter_params = {
-            "min_price": int(request.form.get('price-min')),
-            "max_price": int(request.form.get('price-max')),
-            "min_speed": int(request.form.get('speed-min')),
-            "max_speed": int(request.form.get('speed-max')),
-            "min_accel": float(request.form.get('accel-min')),
-            "max_accel": float(request.form.get('accel-max')),
-            "min_l_100": float(request.form.get('l-100-min')),
-            "max_l_100": float(request.form.get('l-100-max')),
-            "min_power": int(request.form.get('power-min')),
-            "max_power": int(request.form.get('power-max'))
-        }
+    filter_params = {
+        "min_price": request.args.get('price-min', default='0'),
+        "max_price": request.args.get('price-max', default='310000'),
+        "min_speed": request.args.get('speed-min', default='0'),
+        "max_speed": request.args.get('speed-max', default='350'),
+        "min_accel": request.args.get('accel-min', default='0'),
+        "max_accel": request.args.get('accel-max', default='10'),
+        "min_l_100": request.args.get('l-100-min', default='0'),
+        "max_l_100": request.args.get('l-100-max', default='20'),
+        "min_power": request.args.get('power-min', default='0'),
+        "max_power": request.args.get('power-max', default='800')
+    }
 
-        porsche_models_list = search_porsche_model('porsches', **filter_params)
+    porsche_models_list = search_porsche_model('porsches', **filter_params)
 
-        print(porsche_models_list)
+    return render_template('index.html', porsche_models=porsche_models_list)
 
-        return render_template('index.html', porsche_models=porsche_models_list)
-    else:
-        porsche_models_infos = list(get_mongodb_data(collection))
-
-        for porsche_model_info in porsche_models_infos:
-            model_data = {
-                'porsche_price': porsche_model_info.get('porsche_price'),
-                'porsche_name': porsche_model_info.get('porsche_name'),
-                'image_url': porsche_model_info.get('image_url')
-            }
-            porsche_models_list.append(model_data)
-
-        return render_template('index.html', porsche_models=porsche_models_list)
 
 @app.route('/visualisation')
 def visualisation():
@@ -175,11 +160,10 @@ def visualisation():
             plot_bgcolor='#1A1A1A',
             legend=dict(font_color='#1A1A1A')
         )
-        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig,
-                                                        cls=plotly.utils.PlotlyJSONEncoder)
+        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('visualisation.html', graphs=graphs)
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

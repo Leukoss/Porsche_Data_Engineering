@@ -19,7 +19,7 @@
 {% block body %}
     <!-- Contient la ligne de filtre -->
     <div class="row-filter">
-        <form  id="allForme" action="{{ url_for('home') }}" method='POST'>
+        <form  id="allForme" action="{{ url_for('home') }}" method='GET'>
             <!-- Contient le filtre du Prix -->
             <div class="wrapper">
                 <!-- Correspond à la catégorie -->
@@ -31,26 +31,15 @@
                 <div class="price-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-price-min" name="price-min" id="price-min" value="0">
+                        <input type="text" name="price-min" id="price-min" min="0" max="310000" value="{{ request.args.get('price-min', '0') }}">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-price-max" name="price-max" id="price-max" value="310000">
+                        <input type="text" name="price-max" id="price-max" min="0" max="310000" value="{{ request.args.get('price-max', '310000') }}">
                     </div>
-                </div>
-
-                <!-- Correspond à la distance entre les deux extrémités -->
-                <div class="slider">
-                    <div class="progress-price"></div>
-                </div>
-
-                <!-- Correspond au slider des valeurs -->
-                <div class="range-price">
-                    <input type="range" class="range-price-min" min="0" max="310000" name="price-min-range" id="price-min-range" value="0" step="1000">
-                    <input type="range" class="range-price-max" min="0" max="310000" name="price-max-range" id="price-max-range" value="310000" step="1000">
                 </div>
             </div>
 
@@ -65,26 +54,15 @@
                 <div class="speed-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-speed-min" name="speed-min" id="speed-min" value="0">
+                        <input type="text" name="speed-min" id="speed-min" min="0" max="310000" value="{{ request.args.get('speed-min', '0') }}">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-speed-max" name="speed-max" id="speed-max" value="350">
+                        <input type="text" name="speed-max" id="speed-max" min="0" max="310000" value="{{ request.args.get('speed-max', '350') }}">
                     </div>
-                </div>
-
-                <!-- Correspond à la distance entre les deux extremums -->
-                <div class="slider">
-                    <div class="progress-speed"></div>
-                </div>
-
-                <!-- Correspond au slider des valeurs -->
-                <div class="range-speed">
-                    <input type="range" class="range-speed-min" min="0" max="350" id="speed-min-range" value="0" step="1">
-                    <input type="range" class="range-speed-max" min="0" max="350" id="speed-max-range" value="350" step="1">
                 </div>
             </div>
 
@@ -99,26 +77,15 @@
                 <div class="l-100-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-l-100-min" name="l-100-min" id="l-100-min" value="0">
+                        <input type="text" name="l-100-min" id="l-100-min" min="0" max="310000" value="{{ request.args.get('l-100-min', '0') }}">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-l-100-max" name="l-100-max" id="l-100-max" value="15">
+                        <input type="text" name="l-100-max" id="l-100-max" min="0" max="310000" value="{{ request.args.get('l-100-max', '20') }}">
                     </div>
-                </div>
-
-                <!-- Correspond à la distance entre les deux extremums -->
-                <div class="slider">
-                    <div class="progress-l-100"></div>
-                </div>
-
-                <!-- Correspond au slider des valeurs -->
-                <div class="range-l-100">
-                    <input type="range" class="range-l-100-min" min="0" max="20" id='l-100-min-range' value="0 step="1">
-                    <input type="range" class="range-l-100-max" min="0" max="20" id='l-100-max-range' value="15" step="1">
                 </div>
             </div>
 
@@ -133,26 +100,15 @@
                 <div class="power-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-power-min" name="power-min" id="power-min" value="0">
+                        <input type="text" name="power-min" id="power-min" min="0" max="310000" value="{{ request.args.get('power-min', '0') }}">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-power-max" name="power-max" id="power-max" value="800">
+                        <input type="text" name="power-max" id="power-max" min="0" max="310000" value="{{ request.args.get('power-max', '800') }}">
                     </div>
-                </div>
-
-                <!-- Correspond à la distance entre les deux extremums -->
-                <div class="slider">
-                    <div class="progress-power"></div>
-                </div>
-
-                <!-- Correspond au slider des valeurs -->
-                <div class="range-power">
-                    <input type="range" class="range-power-min" min="0" max="800" id="power-min-range" value="0" step="10">
-                    <input type="range" class="range-power-max" min="0" max="800" id="power-max-range" value="800" step="10">
                 </div>
             </div>
 
@@ -167,59 +123,36 @@
                 <div class="acceleration-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-acceleration-min" name="accel-min" id="accel-min" value="0">
+                        <input type="text" name="accel-min" id="accel-min" min="0" max="310000" value="{{ request.args.get('accel-min', '0') }}">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-acceleration-max" name="accel-max" id="accel-max" value="10">
+                        <input type="text" name="accel-max" id="accel-max" min="0" max="310000" value="{{ request.args.get('accel-max', '10') }}">
                     </div>
                 </div>
-
-                <!-- Correspond à la distance entre les deux extremums -->
-                <div class="slider">
-                    <div class="progress-acceleration"></div>
-                </div>
-
-                <!-- Correspond au slider des valeurs -->
-                <div class="range-acceleration">
-                    <input type="range" class="range-acceleration-min" min="0" max="10" id="accel-min-range" value="0" step="1">
-                    <input type="range" class="range-acceleration-max" min="0" max="10" id="accel-max-range" value="10" step="1">
-                </div>
             </div>
-
-            <!-- Différents filtres à retenir -->
-            <input type="hidden" name="min_price" value="{{ min_price }}">
-            <input type="hidden" name="max_price" value="{{ max_price }}">
-            <input type="hidden" name="min_speed" value="{{ min_speed }}">
-            <input type="hidden" name="max_speed" value="{{ max_speed }}">
-            <input type="hidden" name="min_accel" value="{{ min_accel }}">
-            <input type="hidden" name="max_accel" value="{{ max_accel }}">
-            <input type="hidden" name="min_l_100" value="{{ min_l_100 }}">
-            <input type="hidden" name="max_l_100" value="{{ max_l_100 }}">
-            <input type="hidden" name="min_power" value="{{ min_power }}">
-            <input type="hidden" name="max_power" value="{{ max_power }}">
         </form>
-
-        <!-- Correspond aux scripts pour les filtres -->
-        <script src="../static/js/index.js"></script>
     </div>
 
     <!-- Contient la gallerie des modèles de Porsche disponibles -->
     <div class="porsche-models-gallery">
         <!-- Chaque modèle affiche l'image, le prix et le nom -->
-        {% if porsche_models %}
-            {% for model in porsche_models %}
-                <div class="porsche-model-card">
-                    <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
-                    <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
-                    <p class="porsche-model-price">{{ model.porsche_price }} €</p>
-                </div>
-            {% endfor %}
-        {% else %}
-            <p>No matching Porsche models found.</p>
-        {% endif %}
+        {% for model in porsche_models %}
+            <div class="porsche-model-card">
+                <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
+                <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
+                <p class="porsche-model-char">{{ model.power_ch }} ch</p>
+                <p class="porsche-model-char">{{ model.top_speed }} km/h</p>
+                <p class="porsche-model-char">{{ model.porsche_price }} €</p>
+                <p class="porsche-model-char">0 - 100 km/h en {{ model.acceleration }} secondes</p>
+                <p class="porsche-model-char">{{ model.l_100_min }} - {{ model.l_100_max }} L/100 km</p>
+            </div>
+        {% endfor %}
     </div>
+
+    <!-- Correspond aux scripts pour les filtres -->
+    <script src="../static/js/index.js"></script>
 {% endblock %}

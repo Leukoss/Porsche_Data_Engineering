@@ -50,7 +50,8 @@ def search_porsche_model(index_name, min_price, max_price, min_speed, max_speed,
             "bool": {
                 "must": range_filters
             }
-        }
+        },
+        "size": 100
     }
 
     response = es.search(index=index_name, body=query)
