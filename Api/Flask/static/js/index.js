@@ -154,7 +154,21 @@ const allForme = document.getElementById('allForme');
 
 function addChangeEventListenerAndSubmit(selectElement) {
     selectElement.addEventListener('change', () => {
-        allForme.submit();
+        const formData = new FormData(allForme);
+        fetch('/', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (response.ok) {
+                console.log('Form submitted successfully!');
+            } else {
+                console.log('Form submission failed.');
+            }
+        })
+        .catch(error => {
+            console.error('Error submitting form:', error);
+        });
     });
 }
 
@@ -179,4 +193,3 @@ addChangeEventListenerAndSubmit(minPowerSelect);
 addChangeEventListenerAndSubmit(maxPowerSelect);
 addChangeEventListenerAndSubmit(minAcccelSelect);
 addChangeEventListenerAndSubmit(maxAccelSelect);
-

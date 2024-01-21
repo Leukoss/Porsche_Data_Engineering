@@ -65,24 +65,27 @@ collection = log_mongodb(app)
 create_es(es_client=es, porsche_collection=collection)
 
 
-@app.route('/', methods=['GET'])
+@app.route('/', methods=['GET', 'POST'])
 def home():
     """
     Permet de définir la page d'accueil
     :return: render_template retourne la page html associée se trouvant dans le
     dossier 'templates'
     """
+    if request.method == 'POST':
+        print('uoi')
+
     # Récupération des paramètres pour le filtrage
-    min_price = request.args.get('price-min', type=str)
-    max_price = request.args.get('price-max', type=str)
-    min_speed = request.args.get('speed-min', type=str)
-    max_speed = request.args.get('speed-max', type=str)
-    min_accel = request.args.get('accel-min', type=str)
-    max_accel = request.args.get('accel-max', type=str)
-    min_l_100 = request.args.get('l-100-min', type=str)
-    max_l_100 = request.args.get('l-100-max', type=str)
-    min_power = request.args.get('power-min', type=str)
-    max_power = request.args.get('power-max', type=str)
+    min_price = request.form.get('price-min', type=str)
+    max_price = request.form.get('price-max', type=str)
+    min_speed = request.form.get('speed-min', type=str)
+    max_speed = request.form.get('speed-max', type=str)
+    min_accel = request.form.get('accel-min', type=str)
+    max_accel = request.form.get('accel-max', type=str)
+    min_l_100 = request.form.get('l-100-min', type=str)
+    max_l_100 = request.form.get('l-100-max', type=str)
+    min_power = request.form.get('power-min', type=str)
+    max_power = request.form.get('power-max', type=str)
 
     print('min-price:', min_price)
     print('max-price:', max_price)
