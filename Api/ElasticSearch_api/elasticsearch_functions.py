@@ -1,13 +1,11 @@
-# elasticsearch_functions.py
-
 from .elasticsearch_app import es
 from elasticsearch.helpers import bulk
 
 
 def generate_data(documents):
     """
-    Permet de générer les données pour l'indexation
-    :param documents: issus du mongodb
+    Generate data for indexing
+    :param documents: Data from MongoDB
     """
     for document in documents:
         yield {
@@ -16,23 +14,60 @@ def generate_data(documents):
         }
 
 
+def clear_es_client(es_client=es, index="porsches"):
+    """
+    Clear the Elasticsearch client for new searches
+    :param es_client: Elasticsearch client
+    :param index: Index to clear
+    """
+    response = es_client.delete_by_query(
+        index=index,
+        body={
+            "query": {
+                "match_all": {}
+            }
+        })
+
+    es_client.indices.refresh(index=index)
+
+
+def indexation(es_client, documents):
+    """
+    Create an Elasticsearch index
+    :param es_client: Elasticsearch client
+    :param documents: Documents to index
+    """
+    index_name = 'porsches'
+
+    try:
+        if not es_client.indices.exists(index=index_name):
+            # Create the indices if it does not exist
+            es_client.indices.create(index=index_name)
+
+        # Allows the indexing for all documents in a single action and refresh
+        response = bulk(es_client, generate_data(documents))
+        es_client.indices.refresh(index=index_name)
+    except Exception as error:
+        print(f"Exception - {error}")
+
+
 def search_porsche_model(index_name, min_price, max_price, min_speed, max_speed,
                          min_accel, max_accel, min_l_100, max_l_100, min_power,
                          max_power) -> list:
     """
-    Permet de sélectionner les documents en fonction des paramètres
-    :param index_name: nom de l'index
-    :param min_price: Prix minimum
-    :param max_price: Prix maximum
-    :param min_speed: Vitesse minimum
-    :param max_speed: Vitesse maximum
-    :param min_accel: Accélération minimum
-    :param max_accel: Accélération maximum
-    :param min_l_100: Consommation minimum (litres/100km)
-    :param max_l_100: Consommation maximum (litres/100km)
-    :param min_power: Puissance minimum (ch)
-    :param max_power: Puissance maximum (ch)
-    :return: une liste de documents filtrés
+    Select documents based on parameters
+    :param index_name: Index name
+    :param min_price: Minimum price
+    :param max_price: Maximum price
+    :param min_speed: Minimum speed
+    :param max_speed: Maximum speed
+    :param min_accel: Minimum acceleration
+    :param max_accel: Maximum acceleration
+    :param min_l_100: Minimum consumption (liters/100km)
+    :param max_l_100: Maximum consumption (liters/100km)
+    :param min_power: Minimum power (hp)
+    :param max_power: Maximum power (hp)
+    :return: A list of filtered documents
     """
     filtered_documents = []
 
@@ -51,51 +86,25 @@ def search_porsche_model(index_name, min_price, max_price, min_speed, max_speed,
                 "must": range_filters
             }
         },
+        # By default, set the limit to 10
         "size": 100
     }
 
-    response = es.search(index=index_name, body=query)
+    # Make the search according to the constraints in the 'query'
+    response = es.search(index=index_name,
+                         body={
+                             "query": {
+                                 "bool": {
+                                     "must": range_filters
+                                 }
+                             },
+                             # By default, set the limit to 10
+                             "size": 100
+                             }
+                         )
 
+    # Retrieve only the data we need
     for hit in response['hits']['hits']:
         filtered_documents.append(hit['_source'])
 
     return filtered_documents
-
-
-def clear_es_client(es_client=es, index="porsches"):
-    """
-    Permet de clear le client elasticsearch pour de nouvelles recherches
-    :param es_client: client elasticSearch
-    :param index: index à clear
-    """
-    body_query = {
-        "query": {
-            "match_all": {}
-        }
-    }
-
-    response = es_client.delete_by_query(index=index, body=body_query)
-    es_client.indices.refresh(index=index)
-    print(response)
-
-
-def indexation(es_client, documents):
-    """
-    Permet de créer un index ElasticSearch_api
-    :param es_client: client ElasticSearch_api
-    :param documents: à indexer
-    """
-    index_name = 'porsches'
-
-    try:
-        # Si l'index existe déjà
-        if not es_client.indices.exists(index=index_name):
-            es_client.indices.create(index=index_name)
-
-        # Réalise l'indexation
-        response = bulk(es_client, generate_data(documents))
-
-        # S'assure que les index sont à jour
-        es_client.indices.refresh(index=index_name)
-    except Exception as error:
-        print(error)

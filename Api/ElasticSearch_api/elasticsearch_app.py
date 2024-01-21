@@ -1,14 +1,16 @@
 from elasticsearch import Elasticsearch
 from elasticsearch.exceptions import ConnectionError
 
-# On tente d'instancier notre ElasticSearch_api et en cas d'échec, on signale
+# We attempt to instantiate our Elasticsearch API, and in case of failure,
+# we report it
 try:
-    # On instancie ElasticSearch_api à l'adresse localhost au port 9200
+    # We instantiate the Elasticsearch API at the address localhost on port 9200
     es = Elasticsearch(hosts=["http://localhost:9200"])
 
-    # Afin de s'assurer que la connexion est établie on ping notre
-    # ElasticSearch_api
+    # To ensure that the connection is established, we ping our Elasticsearch
+    # API
     if es.ping():
-        print('Connexion établie')
+        print('Connection established')
 except ConnectionError as error:
-    print(f'Erreur - {error}')
+    print(f'Error - {error}')
+
