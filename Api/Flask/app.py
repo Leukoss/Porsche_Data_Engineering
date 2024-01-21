@@ -72,69 +72,40 @@ def home():
     :return: render_template retourne la page html associée se trouvant dans le
     dossier 'templates'
     """
-    if request.method == 'POST':
-        print('uoi')
-
-    # Récupération des paramètres pour le filtrage
-    min_price = request.form.get('price-min', type=str)
-    max_price = request.form.get('price-max', type=str)
-    min_speed = request.form.get('speed-min', type=str)
-    max_speed = request.form.get('speed-max', type=str)
-    min_accel = request.form.get('accel-min', type=str)
-    max_accel = request.form.get('accel-max', type=str)
-    min_l_100 = request.form.get('l-100-min', type=str)
-    max_l_100 = request.form.get('l-100-max', type=str)
-    min_power = request.form.get('power-min', type=str)
-    max_power = request.form.get('power-max', type=str)
-
-    print('min-price:', min_price)
-    print('max-price:', max_price)
-    print('min-speed:', min_speed)
-    print('max-speed:', max_speed)
-    print('min-accel:', min_accel)
-    print('max-accel:', max_accel)
-    print('min-l-100:', min_l_100)
-    print('max-l-100:', max_l_100)
-    print('min-power:', min_power)
-    print('max-power:', max_power)
-
-    dict_params = {
-        'min-price': min_price,
-        'max-price': max_price,
-        'min-speed': min_speed,
-        'max-speed': max_speed,
-        'min-accel': min_accel,
-        'max-accel': max_accel,
-        'min-l-100': min_l_100,
-        'max-l-100': max_l_100,
-        'min-power': min_power,
-        'max-power': max_power
-    }
-
-    # hits = search_porsche_model(index_name='porsches', **dict_params)
-
-    render_params = {
-
-    }
-
-    # Récupération de tous les éléments
-    porsche_models_informations = get_mongodb_data(collection)
-
-    # On définit une liste que l'on passera plus tard en paramètre pour render
     porsche_models_list = []
 
-    # Pour chaque élément de la base de données, on récupère des informations
-    # précises
-    for model in porsche_models_informations:
-        model_data = {
-            'porsche_price': model.get('porsche_price'),
-            'porsche_name': model.get('porsche_name'),
-            'image_url': model.get('image_url')
+    if request.method == 'POST':
+        # Get filter parameters from the form
+        filter_params = {
+            "min_price": int(request.form.get('price-min')),
+            "max_price": int(request.form.get('price-max')),
+            "min_speed": int(request.form.get('speed-min')),
+            "max_speed": int(request.form.get('speed-max')),
+            "min_accel": float(request.form.get('accel-min')),
+            "max_accel": float(request.form.get('accel-max')),
+            "min_l_100": float(request.form.get('l-100-min')),
+            "max_l_100": float(request.form.get('l-100-max')),
+            "min_power": int(request.form.get('power-min')),
+            "max_power": int(request.form.get('power-max'))
         }
-        porsche_models_list.append(model_data)
 
-    return render_template('index.html', porsche_models=porsche_models_list)
+        porsche_models_list = search_porsche_model('porsches', **filter_params)
 
+        print(porsche_models_list)
+
+        return render_template('index.html', porsche_models=porsche_models_list)
+    else:
+        porsche_models_infos = list(get_mongodb_data(collection))
+
+        for porsche_model_info in porsche_models_infos:
+            model_data = {
+                'porsche_price': porsche_model_info.get('porsche_price'),
+                'porsche_name': porsche_model_info.get('porsche_name'),
+                'image_url': porsche_model_info.get('image_url')
+            }
+            porsche_models_list.append(model_data)
+
+        return render_template('index.html', porsche_models=porsche_models_list)
 
 @app.route('/visualisation')
 def visualisation():
@@ -167,14 +138,24 @@ def visualisation():
     graphs = {}
 
     graph_info = [
-        ("Prix vs Accélération", "Accélération (0-100 km/h en secondes)", "Prix (en EUR)", "acceleration", "porsche_price"),
-        ("Prix vs Vitesse", "Vitesse (km/h)", "Prix (en EUR)", "top_speed", "porsche_price"),
-        ("Prix vs l_100_max", "l_100_max (litres/100 km)", "Prix (en EUR)", "l_100_max", "porsche_price"),
-        ("Prix vs Puissance", "Puissance (ch)", "Prix (en EUR)", "power_ch", "porsche_price"),
-        ("Puissance vs Vitesse", "Vitesse (km/h)", "Puissance (ch)", "top_speed", "power_ch"),
-        ("Puissance vs Accélération", "Accélération (0-100 km/h en secondes)", "Puissance (ch)", "acceleration", "power_ch"),
-        ("Puissance vs Litres/100 km", "l_100_max (litres/100 km)", "Puissance (ch)", "l_100_max", "power_ch"),
-        ("Vitesse vs Accélération", "Accélération (0-100 km/h en secondes)", "Vitesse (km/h)", "acceleration", "top_speed")
+        ("Prix vs Accélération", "Accélération (0-100 km/h en secondes)",
+         "Prix (en EUR)", "acceleration", "porsche_price"),
+        ("Prix vs Vitesse", "Vitesse (km/h)", "Prix (en EUR)", "top_speed",
+         "porsche_price"),
+        ("Prix vs l_100_max", "l_100_max (litres/100 km)", "Prix (en EUR)",
+         "l_100_max", "porsche_price"),
+        ("Prix vs Puissance", "Puissance (ch)", "Prix (en EUR)", "power_ch",
+         "porsche_price"),
+        (
+            "Puissance vs Vitesse", "Vitesse (km/h)", "Puissance (ch)",
+            "top_speed",
+            "power_ch"),
+        ("Puissance vs Accélération", "Accélération (0-100 km/h en secondes)",
+         "Puissance (ch)", "acceleration", "power_ch"),
+        ("Puissance vs Litres/100 km", "l_100_max (litres/100 km)",
+         "Puissance (ch)", "l_100_max", "power_ch"),
+        ("Vitesse vs Accélération", "Accélération (0-100 km/h en secondes)",
+         "Vitesse (km/h)", "acceleration", "top_speed")
     ]
 
     for title, x_title, y_title, x_data, y_data in graph_info:
@@ -194,7 +175,8 @@ def visualisation():
             plot_bgcolor='#1A1A1A',
             legend=dict(font_color='#1A1A1A')
         )
-        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig, cls=plotly.utils.PlotlyJSONEncoder)
+        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig,
+                                                        cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('visualisation.html', graphs=graphs)
 

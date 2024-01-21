@@ -31,14 +31,14 @@
                 <div class="price-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-price-min" name="price-min" id="price-min" value="65000">
+                        <input type="number" class="input-price-min" name="price-min" id="price-min" value="0">
                     </div>
 
                     <div class="separator">-</div>
 
                     <!-- Correspond à la valeur maximale -->
                     <div class="field">
-                        <input type="number" class="input-price-max" name="price-max" id="price-max" value="309000">
+                        <input type="number" class="input-price-max" name="price-max" id="price-max" value="310000">
                     </div>
                 </div>
 
@@ -49,8 +49,8 @@
 
                 <!-- Correspond au slider des valeurs -->
                 <div class="range-price">
-                    <input type="range" class="range-price-min" min="0" max="310000" name="price-min-range" id="price-min-range" value="65000" step="1000">
-                    <input type="range" class="range-price-max" min="0" max="310000" name="price-max-range" id="price-max-range" value="309000" step="1000">
+                    <input type="range" class="range-price-min" min="0" max="310000" name="price-min-range" id="price-min-range" value="0" step="1000">
+                    <input type="range" class="range-price-max" min="0" max="310000" name="price-max-range" id="price-max-range" value="310000" step="1000">
                 </div>
             </div>
 
@@ -99,7 +99,7 @@
                 <div class="l-100-input">
                     <!-- Correspond à la valeur minimale -->
                     <div class="field">
-                        <input type="number" class="input-l-100-min" name="l-100-min" id="l-100-min" value="5">
+                        <input type="number" class="input-l-100-min" name="l-100-min" id="l-100-min" value="0">
                     </div>
 
                     <div class="separator">-</div>
@@ -117,7 +117,7 @@
 
                 <!-- Correspond au slider des valeurs -->
                 <div class="range-l-100">
-                    <input type="range" class="range-l-100-min" min="0" max="20" id='l-100-min-range' value="5" step="1">
+                    <input type="range" class="range-l-100-min" min="0" max="20" id='l-100-min-range' value="0 step="1">
                     <input type="range" class="range-l-100-max" min="0" max="20" id='l-100-max-range' value="15" step="1">
                 </div>
             </div>
@@ -151,8 +151,8 @@
 
                 <!-- Correspond au slider des valeurs -->
                 <div class="range-power">
-                    <input type="range" class="range-power-min" min="0" max="800" id="power-min-range" value="100" step="10">
-                    <input type="range" class="range-power-max" min="0" max="800" id="power-max-range" value="750" step="10">
+                    <input type="range" class="range-power-min" min="0" max="800" id="power-min-range" value="0" step="10">
+                    <input type="range" class="range-power-max" min="0" max="800" id="power-max-range" value="800" step="10">
                 </div>
             </div>
 
@@ -185,8 +185,8 @@
 
                 <!-- Correspond au slider des valeurs -->
                 <div class="range-acceleration">
-                    <input type="range" class="range-acceleration-min" min="0" max="10" id="accel-min-range" value="1" step="1">
-                    <input type="range" class="range-acceleration-max" min="0" max="10" id="accel-max-range" value="9" step="1">
+                    <input type="range" class="range-acceleration-min" min="0" max="10" id="accel-min-range" value="0" step="1">
+                    <input type="range" class="range-acceleration-max" min="0" max="10" id="accel-max-range" value="10" step="1">
                 </div>
             </div>
 
@@ -210,12 +210,16 @@
     <!-- Contient la gallerie des modèles de Porsche disponibles -->
     <div class="porsche-models-gallery">
         <!-- Chaque modèle affiche l'image, le prix et le nom -->
-        {% for model in porsche_models %}
-        <div class="porsche-model-card">
-            <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
-            <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
-            <p class="porsche-model-price">{{ model.porsche_price }} €</p>
-        </div>
-        {% endfor %}
+        {% if porsche_models %}
+            {% for model in porsche_models %}
+                <div class="porsche-model-card">
+                    <img src="{{ model.image_url }}" alt="{{ model.porsche_name }}" class="porsche-model-image">
+                    <h3 class="porsche-model-name">{{ model.porsche_name }}</h3>
+                    <p class="porsche-model-price">{{ model.porsche_price }} €</p>
+                </div>
+            {% endfor %}
+        {% else %}
+            <p>No matching Porsche models found.</p>
+        {% endif %}
     </div>
 {% endblock %}
