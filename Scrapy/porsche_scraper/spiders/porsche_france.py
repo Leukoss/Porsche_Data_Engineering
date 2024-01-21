@@ -1,5 +1,5 @@
-"""
-Module for web scraping Porsche's website and connecting to the MongoDB database to store scraped data.
+"""Module for web scraping Porsche's website and connecting to the MongoDB
+database to store scraped data.
 
 Authors: Lucas SALI--ORLIANGE
 Date: January 2024
@@ -11,8 +11,8 @@ from ..items import PorscheScraperItem
 
 class PorscheFranceSpider(scrapy.Spider):
     """
-    Class Docstring:
-    Spider for web scraping Porsche's website to retrieve various information about available Porsche models.
+    Class Docstring: Spider for web scraping Porsche's website to retrieve
+    various information about available Porsche models.
 
     Attributes:
         name (str): Name of the spider.
