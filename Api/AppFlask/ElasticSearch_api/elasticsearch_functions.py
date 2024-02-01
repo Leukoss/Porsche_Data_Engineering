@@ -43,8 +43,6 @@ def indexation(es_client, documents):
         if not es_client.indices.exists(index=index_name):
             # Create the indices if it does not exist
             es_client.indices.create(index=index_name)
-        else:
-            es_client.indices.delete(index=index_name)
 
         # Allows the indexing for all documents in a single action and refresh
         response = bulk(es_client, generate_data(documents))

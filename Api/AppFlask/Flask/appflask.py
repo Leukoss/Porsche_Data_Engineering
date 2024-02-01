@@ -1,5 +1,5 @@
 """
-    Module for launching the Flask application
+Module for launching the Flask application
 """
 import flask_pymongo
 import plotly.graph_objs as go
@@ -20,7 +20,7 @@ def connect_mongodb(flask_app) -> flask_pymongo.wrappers.Collection:
     try:
         # Configure Flask_Pymongo to connect to localhost:27017 and the
         # 'porsche' database
-        flask_app.config['MONGO_URI'] = 'mongodb://localhost:27017/porsche'
+        flask_app.config['MONGO_URI'] = 'mongodb://mongo:27017/porsche'
         mongo = PyMongo(flask_app)
 
         # On Retrieve the 'porsche_models' collection
@@ -29,14 +29,14 @@ def connect_mongodb(flask_app) -> flask_pymongo.wrappers.Collection:
         print(f"Exception while connecting to the mongodb... Error : {error}")
 
 
-def get_mongodb_data(flaskapp) -> list:
+def get_mongodb_data(collection) -> list:
     """
     Retrieves the dataset excluding '_id'
-    :param flaskapp: Flask application
+    :param collection: MongoDB collection
     :return: list of data
     """
     # Returns all fields of all documents in the collection as a list,
-    # excluding the 'field_to_exclude'
+    # excluding the '_id'
     return list(collection.find({}, {'_id': 0}))
 
 

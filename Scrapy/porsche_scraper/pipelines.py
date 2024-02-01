@@ -40,6 +40,9 @@ def get_l100(l100_string) -> tuple[float, float]:
     list_to_return = []
     list_to_return = [float(value.replace(',', '.')) for value in list_l_100]
 
+    if '-' in l100_string:
+        return list_to_return[0], list_to_return[0],
+
     return list_to_return[0], list_to_return[1]
 
 

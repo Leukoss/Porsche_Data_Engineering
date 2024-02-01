@@ -1,3 +1,4 @@
-from AppFlask.Flask import app
+from AppFlask.Flask import appflask
 
-app.app.run(host='0.0.0.0')
+print('-DEBUG FLASK/MONGO/ES-')
+appflask.app.run(host='0.0.0.0')

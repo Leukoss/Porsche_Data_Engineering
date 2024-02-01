@@ -12,7 +12,7 @@
 
 /* Style for all filter cards */
 .wrapper {
-    width: calc(18% - 20px);
+    width: calc(16% - 20px);
     background: #fff;
     border-radius: 10px;
     padding: 20px 25px 40px;
