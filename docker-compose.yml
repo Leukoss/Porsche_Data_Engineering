@@ -1,0 +1,40 @@
+version: '3'
+services:
+
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
+    container_name: mongodb
+    restart: always
+
+  scrapy:
+    container_name: scrapy
+    build:
+      context: ./Scrapy
+    depends_on:
+      mongo:
+        condition: service_started
+
+  elasticsearch:
+    container_name: elasticsearch
+    image: docker.elastic.co/elasticsearch/elasticsearch:8.11.3
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    environment:
+      - discovery.type=single-node
+      - xpack.security.enabled=false
+
+  api_flask:
+    container_name: api_flask
+    build:
+      context: ./Api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    depends_on:
+      elasticsearch:
+        condition: service_started
+      scrapy:
+        condition: service_completed_successfully

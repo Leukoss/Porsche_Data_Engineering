@@ -6,8 +6,8 @@ import plotly.graph_objs as go
 import plotly
 import json
 
-from Api.ElasticSearch_api.elasticsearch_functions import *
-from flask import Flask, render_template, request, redirect
+from ..ElasticSearch_api.elasticsearch_functions import *
+from flask import Flask, render_template, request
 from flask_pymongo import PyMongo
 
 
@@ -46,9 +46,6 @@ def create_es(es_client, porsche_collection):
     :param es_client: Elasticsearch client
     :param porsche_collection: Collection of Porsche data
     """
-    # First, we reset the previous Elasticsearch
-    clear_es_client(es_client)
-
     # We retrieve the documents
     documents = get_mongodb_data(porsche_collection)
 
@@ -159,7 +156,3 @@ def visualisation():
                                                         cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('visualisation.html', graphs=graphs)
-
-
-if __name__ == '__main__':
-    app.run(debug=True)

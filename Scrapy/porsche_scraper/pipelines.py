@@ -115,7 +115,7 @@ class MongoPipeline(object):
         :param spider: de notre scraper porsche_france
         """
         # Instanciation de MongoClient sur le port 27017 à l'adresse 'mongo'
-        self.client = pymongo.MongoClient()
+        self.client = pymongo.MongoClient('mongo', 27017)
         # Sélectionne la Base de Données 'porsche'
         self.db = self.client['porsche']
 

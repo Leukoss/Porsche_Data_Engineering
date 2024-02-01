@@ -5,7 +5,7 @@ from elasticsearch.exceptions import ConnectionError
 # we report it
 try:
     # We instantiate the Elasticsearch API at the address localhost on port 9200
-    es = Elasticsearch(hosts=["http://localhost:9200"])
+    es = Elasticsearch(hosts=["http://elasticsearch:9200"])
 
     # To ensure that the connection is established, we ping our Elasticsearch
     # API

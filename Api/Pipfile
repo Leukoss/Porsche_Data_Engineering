@@ -1,0 +1,14 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[requires]
+python_version = "3.11.5"
+
+[packages]
+elasticsearch = "==8.11.1"
+flask = "==3.0.1"
+flask-pymongo = "==2.3.0"
+plotly = "==5.18.0"
+

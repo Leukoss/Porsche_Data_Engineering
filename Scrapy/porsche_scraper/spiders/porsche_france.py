@@ -9,6 +9,7 @@ import re
 
 from ..items import PorscheScraperItem
 
+
 class PorscheFranceSpider(scrapy.Spider):
     """
     Class Docstring: Spider for web scraping Porsche's website to retrieve
@@ -17,7 +18,7 @@ class PorscheFranceSpider(scrapy.Spider):
     Attributes:
         name (str): Name of the spider.
         allowed_domains (list): List of allowed domains to crawl.
-        start_url (list): List of starting URLs for the spider.
+        start_urls (list): List of starting URLs for the spider.
     """
     name = "porsche_france"
     allowed_domains = ["www.porsche.com"]
@@ -112,7 +113,8 @@ class PorscheFranceSpider(scrapy.Spider):
         :param model_response: Contains the response containing the image URL.
         :return: Image URL as a string.
         """
-        return model_response.css('img.m-364-module-image::attr(data-image-src)').get()
+        return model_response.css(
+            'img.m-364-module-image::attr(data-image-src)').get()
 
     @staticmethod
     def parse_details(model_response):
