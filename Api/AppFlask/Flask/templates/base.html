@@ -16,10 +16,10 @@
     <title>{% block title %}{% endblock %}</title>
 
     <!-- Links this page and its content to a CSS stylesheet -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css) }}">
+    <link rel="stylesheet" href="../static/css/base.css">
 
     <!-- Links this page to an icon -->
-    <link rel="icon" href="{{ url_for('static', filename='img/porsche.ico') }}">
+    <link rel="icon" href="../static/img/porsche.ico">
 
     <!-- Allows adding fields based on the page -->
     {% block head %}{% endblock %}
@@ -42,7 +42,7 @@
     <footer>
         <div class="footer">
             <!-- University Gustave Eiffel Logo -->
-            <img src="{{ url_for('static', filename='img/logo_univ.png') }}" class="logo" alt="University Gustave Eiffel Logo">
+            <img src="../static/img/logo_univ.png" class="logo" alt="University Gustave Eiffel Logo">
 
             <!-- Copyright -->
             <div class="copyright">
@@ -51,7 +51,7 @@
 
             <!-- Credits -->
             <div class="credits">
-                Lucas SALI--ORLIANGE, encadrés par Jérémy SURGET & William CARDOSO
+                Lucas SALI--ORLIANGE & Luca GAMBIER, encadrés par Jérémy SURGET & William CARDOSO
             </div>
 
             <!-- Unit -->
@@ -60,7 +60,7 @@
             </div>
 
             <!-- ESIEE Paris Logo -->
-            <img src="{{ url_for('static', filename='img/logo_esiee.png'}}" class="logo" alt="ESIEE Paris Logo">
+            <img src="../static/img/logo_esiee.png" class="logo" alt="ESIEE Paris Logo">
         </div>
     </footer>
 </body>

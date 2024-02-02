@@ -5,7 +5,7 @@
 
 <!-- Link a new stylesheet only for this webpage -->
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+    <link rel="stylesheet" href="../static/css/index.css">
 {% endblock %}
 
 <!-- Title page -->
@@ -72,5 +72,5 @@
     </div>
 
     <!-- Filters' script -->
-    <script src="{{ url_for('static', filename='js/index.js' }}"></script>
+    <script src="../static/js/index.js"></script>
 {% endblock %}
