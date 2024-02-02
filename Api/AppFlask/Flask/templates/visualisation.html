@@ -123,7 +123,7 @@
     <!-- For each graph_id and data, plots a cloud points -->
     {% for graph_id, graph_data in graphs.items() %}
         <!-- Scripts to generate the plot with plotly -->
-        <script>
+        <script defer>
             <!-- Get the variable according to its id containing the data -->
             var graph_{{ graph_id }} = {{ graph_data | safe }};
             <!-- Dispplay the cloud points -->
