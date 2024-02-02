@@ -20,9 +20,9 @@ class PorscheFranceSpider(scrapy.Spider):
         allowed_domains (list): List of allowed domains to crawl.
         start_urls (list): List of starting URLs for the spider.
     """
-    name = "porsche_france"
-    allowed_domains = ["www.porsche.com"]
-    start_urls = ["https://www.porsche.com/france/models/"]
+    name = 'porsche_france'
+    allowed_domains = ['www.porsche.com']
+    start_urls = ['https://www.porsche.com/france/models/']
 
     def parse(self, response) -> None:
         """

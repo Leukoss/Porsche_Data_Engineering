@@ -1,14 +1,13 @@
 """
 Module for launching the Flask application
 """
+from flask import Flask, render_template, request
+from flask_pymongo import PyMongo
 import flask_pymongo
 import plotly.graph_objs as go
 import plotly
 import json
-
 from ..ElasticSearch_api.elasticsearch_functions import *
-from flask import Flask, render_template, request
-from flask_pymongo import PyMongo
 
 
 def connect_mongodb(flask_app) -> flask_pymongo.wrappers.Collection:
@@ -26,7 +25,8 @@ def connect_mongodb(flask_app) -> flask_pymongo.wrappers.Collection:
         # On Retrieve the 'porsche_models' collection
         return mongo.db.porsche_models
     except Exception as error:
-        print(f"Exception while connecting to the mongodb... Error : {error}")
+        raise ConnectionError(f"Exception while connecting to the mongodb... "
+                              f"Error : {error}")
 
 
 def get_mongodb_data(collection) -> list:
@@ -107,9 +107,8 @@ def visualisation():
     }
 
     # Building lists of information about Porsche models
-    for info in porsche_models_informations:
-        for key in data.keys():
-            data[key].append(info.get(key))
+    data = {key: [info.get(key) for info in porsche_models_informations] for key
+            in data.keys()}
 
     # Creating graphs
     graphs = {}
@@ -137,22 +136,15 @@ def visualisation():
 
     for title, x_title, y_title, x_data, y_data in graph_info:
         fig = go.Figure(data=[
-            go.Scatter(
-                x=data[x_data],
-                y=data[y_data],
-                mode='markers',
-                marker=dict(color='#1A1A1A')
-            )
+            go.Scatter(x=data[x_data], y=data[y_data], mode='markers',
+                       marker=dict(color='#1A1A1A')
+                       )
         ])
-        fig.update_layout(
-            title=title,
-            xaxis_title=x_title,
-            yaxis_title=y_title,
-            margin=dict(l=40, r=40, t=40, b=40),
-            plot_bgcolor='#c7c7c7',
+        fig.update_layout(title=title, xaxis_title=x_title, yaxis_title=y_title,
+            margin=dict(l=40, r=40, t=40, b=40), plot_bgcolor='#c7c7c7',
             legend=dict(font=dict(color='#1A1A1A'))
         )
-        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(fig,
-                                                        cls=plotly.utils.PlotlyJSONEncoder)
+        graphs[f"graph_{x_data}_{y_data}"] = json.dumps(
+            fig, cls=plotly.utils.PlotlyJSONEncoder)
 
     return render_template('visualisation.html', graphs=graphs)
