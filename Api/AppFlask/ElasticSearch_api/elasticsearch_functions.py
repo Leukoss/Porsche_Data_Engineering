@@ -22,11 +22,8 @@ def clear_es_client(es_client=es, index="porsches"):
     """
     response = es_client.delete_by_query(
         index=index,
-        body={
-            "query": {
-                "match_all": {}
-            }
-        })
+        body={"query": {"match_all": {}}}
+    )
 
     es_client.indices.refresh(index=index)
 
@@ -80,31 +77,15 @@ def search_porsche_model(index_name, min_price, max_price, min_speed, max_speed,
         {"range": {"l_100_min": {"gte": min_l_100}}},
     ]
 
-    query = {
-        "query": {
-            "bool": {
-                "must": range_filters
-            }
-        },
-        # By default, set the limit to 10
-        "size": 100
-    }
+    query = {"query": {"bool": {"must": range_filters}}, "size": 100}
 
-    # Make the search according to the constraints in the 'query'
-    response = es.search(index=index_name,
-                         body={
-                             "query": {
-                                 "bool": {
-                                     "must": range_filters
-                                 }
-                             },
-                             # By default, set the limit to 10
-                             "size": 100
-                             }
-                         )
+    try:
+        response = es.search(index=index_name, body=query)
 
-    # Retrieve only the data we need
-    for hit in response['hits']['hits']:
-        filtered_documents.append(hit['_source'])
+        # Retrieve only the data we need
+        filtered_documents = [hit['_source'] for hit in
+                              response.get('hits', {}).get('hits', [])]
+    except Exception as error:
+        print(f"Error - {error}")
 
     return filtered_documents
