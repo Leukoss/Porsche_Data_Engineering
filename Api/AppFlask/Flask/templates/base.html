@@ -7,16 +7,20 @@
 <head>
     <!-- Metadata (page information) -->
     <!-- Keywords -> keywords, viewport -> optimize mobile layout -->
-    <meta name="keywords" content="Scrapy, HTML, JS, CSS, Flask, Mongo, Python">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="author" content="Lucas SALI--ORLIANGE">
-    <meta charset="UTF-8">
+    <meta name="keywords" content="Scrapy, HTML, JS, CSS, Flask, Mongo, Python">
+
     <!-- Allows adjusting the title on each page -->
     <title>{% block title %}{% endblock %}</title>
+
     <!-- Links this page and its content to a CSS stylesheet -->
-    <link rel="stylesheet" href="../static/css/base.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css) }}">
+
     <!-- Links this page to an icon -->
-    <link rel="icon" href="../static/img/porsche.ico">
+    <link rel="icon" href="{{ url_for('static', filename='img/porsche.ico') }}">
+
     <!-- Allows adding fields based on the page -->
     {% block head %}{% endblock %}
 </head>
@@ -38,7 +42,7 @@
     <footer>
         <div class="footer">
             <!-- University Gustave Eiffel Logo -->
-            <img src="../static/img/logo_univ.png" class="logo" alt="University Gustave Eiffel Logo">
+            <img src="{{ url_for('static', filename='img/logo_univ.png') }}" class="logo" alt="University Gustave Eiffel Logo">
 
             <!-- Copyright -->
             <div class="copyright">
@@ -56,7 +60,7 @@
             </div>
 
             <!-- ESIEE Paris Logo -->
-            <img src="../static/img/logo_esiee.png" class="logo" alt="ESIEE Paris Logo">
+            <img src="{{ url_for('static', filename='img/logo_esiee.png'}}" class="logo" alt="ESIEE Paris Logo">
         </div>
     </footer>
 </body>
